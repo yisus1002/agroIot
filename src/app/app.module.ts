@@ -9,6 +9,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './pages/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -25,6 +26,8 @@ import { LoginComponent } from './pages/login/login.component';
     AppRoutingModule,
     MaterialModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
   ], 
   providers: [],
   bootstrap: [AppComponent]

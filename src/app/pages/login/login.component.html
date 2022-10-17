@@ -1,7 +1,23 @@
-<div class="container-fluid d-flex">
-    <div class="container" #container id="container">
-        <div class="form-container sign-up-container">
-            <form action="#">
+<nav class="navbar navbar-expand-lg p-1 m-0 "
+        style="z-index: 102;"
+        >
+    <div class="container-fluid">
+        <a class="navbar-brand m-0" [routerLink]="['/']">
+          <img src="https://i.ibb.co/yFsxcBQ/IOT.png" 
+                alt="Logo" width="80" height="80" 
+                class="img-thumbnail border-0 p-0 m-0 img-hover"
+                style="border-radius: 100%; overflow: hidden;">
+        </a>
+      </div>
+  </nav>
+
+<div class="d-flex " style="  justify-content: center; align-items: center;">
+    <div class="container m-0" #container id="container">
+        <div class="form-container sign-up-container "
+                style=" transition-duration: 400ms;"
+                *ngIf="btnsig">
+            <form action="#" class="fadeInDown">
+                <p class="text-center mb-2" >Welcome</p>
                 <h1>Create Account</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -9,14 +25,27 @@
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email for registration</span>
-                <input type="text" placeholder="Name" />
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
+                <div class="col col-12 col-md-10 col-lg-8">
+                    <div class="col-12 d-md-flex justify-content-between">
+                        <input class="mx-1 col" type="text" placeholder="Name 1" />
+                        <input class="mx-1 col" type="text" placeholder="Name 2" />
+                    </div>
+                    <div class="col-12 d-md-flex justify-content-between">
+                        <input class="mx-1 col" type="text" placeholder="Last name 1" />
+                        <input class="mx-1 col" type="text" placeholder="Last name 2" />
+                    </div>
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                    <input type="password" placeholder="Repeat password" />
+                </div>
                 <button>Sign Up</button>
             </form>
         </div>
-        <div class="form-container log-in-container">
+        <div class="form-container log-in-container fadeInDown"
+             style=" transition-duration: 400ms;"
+             *ngIf="btnlog">
             <form action="#">
+                <p class="text-center mb-2" >Welcome</p>
                 <h1>Log in</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -24,8 +53,10 @@
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your account</span>
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
+                <div class="col col-12 col-md-10 col-lg-8">
+                    <input type="email" placeholder="Email" />
+                    <input type="password" placeholder="Password" />
+                </div>
                 <a href="#">Forgot your password?</a>
                 <button>Log In</button>
             </form>
