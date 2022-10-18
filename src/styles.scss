@@ -2,6 +2,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
 html, body { height: 100%; }
 body { margin: 0;font-family: 'Nunito Sans', sans-serif; }
+
+
+::-webkit-scrollbar{
+  width: 10px;
+  height: 20px;
+}
+
+::-webkit-scrollbar-thumb{
+  background: linear-gradient(
+    to bottom,
+    #ff850a,
+    #ff3474
+  );
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track{
+  background: #474747;
+}
+
 // --------------------------------------------------------------------------------------------
 
     /* Simple CSS3 Fade-in Animation */

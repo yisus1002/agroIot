@@ -1,80 +1,105 @@
-<nav class="navbar navbar-expand-lg p-1 m-0 "
-        style="z-index: 102;"
-        >
-    <div class="container-fluid">
-        <a class="navbar-brand m-0" [routerLink]="['/']">
-          <img src="https://i.ibb.co/yFsxcBQ/IOT.png" 
-                alt="Logo" width="80" height="80" 
-                class="img-thumbnail border-0 p-0 m-0 img-hover"
-                style="border-radius: 100%; overflow: hidden;">
-        </a>
-      </div>
-  </nav>
-
-<div class="d-flex " style="  justify-content: center; align-items: center;">
-    <div class="container m-0" #container id="container">
-        <div class="form-container sign-up-container "
-                style=" transition-duration: 400ms;"
+<div class="header m-0">
+    <div class="w-100" style="position: absolute; z-index:102; top: 10px;">
+            <a class="navbar-brand m-0" [routerLink]="['/']">
+              <img src="https://i.ibb.co/yFsxcBQ/IOT.png" alt="Logo" width="70" height="70" 
+                    class="img-thumbnail border-0 p-0 m-0 img-hover" >
+            </a>
+    </div>
+    <div>
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.7" />
+          <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)" />
+          <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)" />
+          <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
+        </g>
+      </svg>
+    </div>
+</div> 
+<div class="d-flex " style="  justify-content: center; align-items: center; " >
+    <div class="container m-0" #container id="container">                
+        <div class="form-container sign-up-container " style=" transition-duration: 400ms;"
                 *ngIf="btnsig">
-            <form action="#" class="fadeInDown">
-                <p class="text-center mb-2" >Welcome</p>
-                <h1>Create Account</h1>
-                <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            <form action="#" class="fadeInDown"
+                >
+                <div class="container d-flex " style="flex-direction: column; align-items: center; justify-content: center; ">
+                     <h1>Create Account</h1>
+                     <div class="social-container">
+                         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                         <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                         <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                     </div>
+                     <span>or use your email for registration</span>
+                     <div class="col col-12 col-md-10 col-lg-8">
+                         <div class="col-12 d-md-flex justify-content-between">
+                             <input class="mx-1 col" type="text" placeholder="Name 1" />
+                             <input class="mx-1 col" type="text" placeholder="Name 2" />
+                         </div>
+                         <div class="col-12 d-md-flex justify-content-between">
+                             <input class="mx-1 col" type="text" placeholder="Last name 1" />
+                             <input class="mx-1 col" type="text" placeholder="Last name 2" />
+                         </div>
+                         <input type="email" placeholder="Email" />
+                         <input type="password" placeholder="Password" />
+                         <input type="password" placeholder="Repeat password" />
+                     </div>
+                     <button>Sign Up</button>                
                 </div>
-                <span>or use your email for registration</span>
-                <div class="col col-12 col-md-10 col-lg-8">
-                    <div class="col-12 d-md-flex justify-content-between">
-                        <input class="mx-1 col" type="text" placeholder="Name 1" />
-                        <input class="mx-1 col" type="text" placeholder="Name 2" />
-                    </div>
-                    <div class="col-12 d-md-flex justify-content-between">
-                        <input class="mx-1 col" type="text" placeholder="Last name 1" />
-                        <input class="mx-1 col" type="text" placeholder="Last name 2" />
-                    </div>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <input type="password" placeholder="Repeat password" />
-                </div>
-                <button>Sign Up</button>
             </form>
         </div>
-        <div class="form-container log-in-container fadeInDown"
-             style=" transition-duration: 400ms;"
+        <div class="form-container log-in-container fadeInDown" style=" transition-duration: 400ms;"
              *ngIf="btnlog">
-            <form action="#">
-                <p class="text-center mb-2" >Welcome</p>
-                <h1>Log in</h1>
-                <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            <form action="#" >
+                <div class="container d-flex pt-4" 
+                        style="flex-direction: column; align-items: center; justify-content: center;">
+                    <h1 class="mt-4">Log in</h1>
+                    <div class="social-container">
+                        <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                        <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <span>or use your account</span>
+                    <div class="col col-12 col-md-10 col-lg-8">
+                        <input type="email" placeholder="Email" />
+                        <input type="password" placeholder="Password" />
+                    </div>
+                    <a href="#">Forgot your password?</a>
+                    <button>Log In</button>
                 </div>
-                <span>or use your account</span>
-                <div class="col col-12 col-md-10 col-lg-8">
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                </div>
-                <a href="#">Forgot your password?</a>
-                <button>Log In</button>
             </form>
         </div>
         <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h1>Welcome Back!</h1>
-                    <p>Already have an account? Log In</p>
-                    <button class="ghost" #logIn id="logIn">Log In</button>
+             <div class="overlay">
+                <div class="overlay-panel overlay-left" >
+                    <div class="row g-2 d-flex align-items-center justify-content-center p-0 m-0"
+                            style="height: 70vh; position: relative;" >
+                        <div class="container cont-sig">
+                            <h1>Welcome Back!</h1>
+                            <p>Already have an account? Log In</p>
+                            <button class="ghost" #logIn id="logIn">Log In</button>
+                        </div>
+                        <img src="https://i.ibb.co/M8dvn1n/img2.jpg" class=" col-7  img" alt="...">
+                        <img src="https://i.ibb.co/ZRrssnF/img3.jpg" class=" col-5 img " alt="...">
+                        <img src="https://i.ibb.co/0tSSMfz/img1.webp" class="col-12 img " alt="...">
+                    </div>
                 </div>
-                <div class="overlay-panel overlay-right">
-                    <h1>Hello, There!</h1>
-                    <p>Don't have an account? Sign Up Free</p>
-                    <button class="ghost" #signUp id="signUp">Sign Up</button>
+                <div class="overlay-panel overlay-right" style="display: flex; align-items: center; justify-content: center; ">
+                    <div class="row g-2 d-flex align-items-center justify-content-center p-0 m-0"
+                            style="height: 70vh; position: relative;">
+                            <div class="container cont-sig">
+                                <h1>Hello, There!</h1>
+                                <p>Don't have an account? Sign Up Free</p>
+                                <button class="ghost" #signUp id="signUp">Sign Up</button>
+                            </div>
+                            <img src="https://i.ibb.co/M8dvn1n/img2.jpg" class=" col-7  img" alt="...">
+                            <img src="https://i.ibb.co/ZRrssnF/img3.jpg" class=" col-5 img " alt="...">
+                            <img src="https://i.ibb.co/0tSSMfz/img1.webp" class="col-12 img " alt="...">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    
 </div>
