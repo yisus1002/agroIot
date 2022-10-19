@@ -20,7 +20,22 @@ body { margin: 0;font-family: 'Nunito Sans', sans-serif; }
 ::-webkit-scrollbar-track{
   background: #474747;
 }
-
+.valid{
+  -webkit-box-shadow: 0px 1px 2px 2px rgba(10,255,71,0.46)!important;
+  box-shadow: 0px 1px 2px 2px rgba(10,255,71,0.46)!important;
+}
+.invalid{
+  -webkit-box-shadow: 0px 1px 2px 2px rgba(255, 30, 10, 0.926)!important; 
+  box-shadow: 0px 1px 2px 2px rgba(255, 30, 10, 0.926)!important;
+  // outline: ;
+  // border: ; 
+}
+.alert{
+  color: #ff5100;
+  margin: 0!important;
+  padding: 0!important;
+  font-size: smaller!important;
+}
 // --------------------------------------------------------------------------------------------
 
     /* Simple CSS3 Fade-in Animation */

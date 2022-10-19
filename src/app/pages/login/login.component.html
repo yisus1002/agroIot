@@ -24,6 +24,8 @@
         <div class="form-container sign-up-container " style=" transition-duration: 400ms;"
                 *ngIf="btnsig">
             <form action="#" class="fadeInDown row m-0"
+                [formGroup]="formuSig"
+                (ngSubmit)="sigup()"
                 >
                 <div class="container d-flex " style="flex-direction: column; align-items: center; justify-content: center; ">
                      <h1>Create Account</h1>
@@ -35,24 +37,71 @@
                      <span>or use your email for registration</span>
                      <div class="col col-12 col-md-10 col-lg-8">
                          <div class="col-12 d-md-flex justify-content-between">
-                             <input class="mx-1 col" type="text" placeholder="Name 1" />
-                             <input class="mx-1 col" type="text" placeholder="Name 2" />
+                            
+                             <div class="mx-1 col">
+                                 <p *ngIf="name1NoValid" class="alert">Name 1 is invalid</p>
+                                 <input class="" type="text" 
+                                 placeholder="Name 1"
+                                 formControlName="name1"
+                                 [class.invalid]="name1NoValid"
+                                 />
+                             </div>
+                             <div class="mx-1 col">
+                                 <p *ngIf="name2NoValid" class="alert">Name 2 is invalid</p>
+                                 <input class="" type="text" 
+                                 placeholder="Name 2"
+                                 formControlName="name2"
+                                 [class.invalid]="name2NoValid"
+                                 />
+                             </div>
+                            </div>
+                            <div class="col-12 d-md-flex justify-content-between">
+                                <div class="mx-1 col">
+                                    <p *ngIf="lsname1NoValid" class="alert">Last name 1 is invalid</p>
+                                    <input class="mx-1 col" type="text" 
+                                       placeholder="Last name 1"
+                                       formControlName="lsname1"
+                                       [class.invalid]="lsname1NoValid"
+                                       />
+                                </div>
+                                <div class="mx-1 col">
+                                    <p *ngIf="lsname2NoValid" class="alert">Last name 2 is invalid</p>
+                                    <input class="mx-1 col" type="text" 
+                                       placeholder="Last name 2"
+                                       formControlName="lsname2"
+                                       [class.invalid]="lsname2NoValid"
+                                       />
+                                </div>
                          </div>
-                         <div class="col-12 d-md-flex justify-content-between">
-                             <input class="mx-1 col" type="text" placeholder="Last name 1" />
-                             <input class="mx-1 col" type="text" placeholder="Last name 2" />
-                         </div>
-                         <input type="email" placeholder="Email" />
-                         <input type="password" placeholder="Password" />
-                         <input type="password" placeholder="Repeat password" />
+                         <p *ngIf="email2NoValid" class="alert">Email is invalid</p>
+                         <input type="email"
+                         placeholder="Email"
+                         formControlName="email"
+                         [class.invalid]="email2NoValid"
+                         />
+                         <p *ngIf="pass1NoValid" class="alert">Password is invalid</p>
+                         <input type="password"     
+                         placeholder="Password" 
+                         formControlName="pass1"
+                         [class.invalid]="pass1NoValid"
+                         />
+                         <p *ngIf="pass1NoValid" class="alert">passwords are not the same</p>
+                         <input type="password" 
+                            placeholder="Repeat password" 
+                            formControlName="pass2"
+                            [class.invalid]="pass2NoValid"
+                            />
                      </div>
-                     <button>Sign Up</button>                
+                     <button type="submit">Sign Up</button>                
                 </div>
             </form>
         </div>
         <div class="form-container log-in-container fadeInDown" style=" transition-duration: 400ms;"
              *ngIf="btnlog">
-            <form action="#" class="row d-flex align-items-center justify-content-center p-0 m-0">
+            <form  class="row d-flex align-items-center justify-content-center p-0 m-0"
+                    [formGroup]="formulog"
+                    (ngSubmit)="login()"
+                    >
                 <div class="container d-flex pt-4" 
                         style="flex-direction: column; align-items: center; justify-content: center;">
                     <h1 class="mt-4">Log in</h1>
@@ -63,11 +112,19 @@
                     </div>
                     <span>or use your account</span>
                     <div class="col col-12 col-md-10 col-lg-8">
-                        <input type="email" placeholder="Email" />
-                        <input type="password" placeholder="Password" />
+                        <p *ngIf="emailNoValid" class="alert"> Email is invalid</p>
+                        <input type="email" 
+                               placeholder="Email"
+                               [class.invalid]="emailNoValid"
+                               formControlName="email" />
+                        <p *ngIf="emailNoValid" class="alert">Password is invalid</p>
+                        <input type="password"
+                               placeholder="Password"
+                               [class.invalid]="passwordNoValid"
+                               formControlName="password" />
                     </div>
                     <a href="#">Forgot your password?</a>
-                    <button>Log In</button>
+                    <button type="submit">Log In</button>
                 </div>
             </form>
         </div>
