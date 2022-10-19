@@ -6,7 +6,7 @@ body { margin: 0;font-family: 'Nunito Sans', sans-serif; }
 
 ::-webkit-scrollbar{
   width: 10px;
-  height: 20px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-thumb{
@@ -105,4 +105,13 @@ body { margin: 0;font-family: 'Nunito Sans', sans-serif; }
     -webkit-animation-delay: 1s;
     -moz-animation-delay: 1s;
     animation-delay: 1s;
+  }
+  @media (max-width: 576px) {
+    .cont-sig{
+      width: 100%!important;
+    }
+    .img{
+      height: 59%!important;
+      margin-top: -1%!important;
+    }
   }

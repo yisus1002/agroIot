@@ -63,7 +63,6 @@ form {
     text-align: center;
     position: relative;
     height: 100vh;
-    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -203,14 +202,7 @@ input {
     border-radius: 20px;
     object-fit: cover;
     height: 50%
-    // overflow: hidden;
-    // transform: scale(1);
-    // transition-duration: 400ms;
 }
-// .img:hover{
-    // transform: scale(.98);
-    // transition-duration: 400ms;
-// }
 
 .cont-sig{
     z-index: 6;

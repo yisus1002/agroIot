@@ -23,7 +23,7 @@
     <div class="container m-0" #container id="container">                
         <div class="form-container sign-up-container " style=" transition-duration: 400ms;"
                 *ngIf="btnsig">
-            <form action="#" class="fadeInDown"
+            <form action="#" class="fadeInDown row m-0"
                 >
                 <div class="container d-flex " style="flex-direction: column; align-items: center; justify-content: center; ">
                      <h1>Create Account</h1>
@@ -52,7 +52,7 @@
         </div>
         <div class="form-container log-in-container fadeInDown" style=" transition-duration: 400ms;"
              *ngIf="btnlog">
-            <form action="#" >
+            <form action="#" class="row d-flex align-items-center justify-content-center p-0 m-0">
                 <div class="container d-flex pt-4" 
                         style="flex-direction: column; align-items: center; justify-content: center;">
                     <h1 class="mt-4">Log in</h1>
@@ -73,7 +73,7 @@
         </div>
         <div class="overlay-container">
              <div class="overlay">
-                <div class="overlay-panel overlay-left" >
+                <div class="overlay-panel overlay-left p-0 ps-1" >
                     <div class="row g-2 d-flex align-items-center justify-content-center p-0 m-0"
                             style="height: 70vh; position: relative;" >
                         <div class="container cont-sig">
@@ -81,12 +81,12 @@
                             <p>Already have an account? Log In</p>
                             <button class="ghost" #logIn id="logIn">Log In</button>
                         </div>
-                        <img src="https://i.ibb.co/M8dvn1n/img2.jpg" class=" col-7  img" alt="...">
-                        <img src="https://i.ibb.co/ZRrssnF/img3.jpg" class=" col-5 img " alt="...">
-                        <img src="https://i.ibb.co/0tSSMfz/img1.webp" class="col-12 img " alt="...">
+                        <img src="https://i.ibb.co/M8dvn1n/img2.jpg" class=" col-7  img d-none d-sm-block d-md-block" alt="...">
+                        <img src="https://i.ibb.co/ZRrssnF/img3.jpg" class=" col-5  img d-none d-sm-block d-md-block" alt="...">
+                        <img src="https://i.ibb.co/0tSSMfz/img1.webp" class="col-12 img" alt="...">
                     </div>
                 </div>
-                <div class="overlay-panel overlay-right" style="display: flex; align-items: center; justify-content: center; ">
+                <div class="overlay-panel overlay-right p-0 pe-1" style="display: flex; align-items: center; justify-content: center; ">
                     <div class="row g-2 d-flex align-items-center justify-content-center p-0 m-0"
                             style="height: 70vh; position: relative;">
                             <div class="container cont-sig">
@@ -94,9 +94,9 @@
                                 <p>Don't have an account? Sign Up Free</p>
                                 <button class="ghost" #signUp id="signUp">Sign Up</button>
                             </div>
-                            <img src="https://i.ibb.co/M8dvn1n/img2.jpg" class=" col-7  img" alt="...">
-                            <img src="https://i.ibb.co/ZRrssnF/img3.jpg" class=" col-5 img " alt="...">
-                            <img src="https://i.ibb.co/0tSSMfz/img1.webp" class="col-12 img " alt="...">
+                            <img src="https://i.ibb.co/M8dvn1n/img2.jpg" class=" col-7  img d-none d-sm-block d-md-block" alt="...">
+                            <img src="https://i.ibb.co/ZRrssnF/img3.jpg" class=" col-5  img d-none d-sm-block d-md-block" alt="...">
+                            <img src="https://i.ibb.co/0tSSMfz/img1.webp" class="col-12 img" alt="...">
                     </div>
                 </div>
             </div>
