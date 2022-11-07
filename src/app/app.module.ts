@@ -1,3 +1,4 @@
+import { AvatarComponent } from './shared/avatar/avatar.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -20,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     LoginComponent,
     PerfilComponent,
+    AvatarComponent,
   ],
   imports: [
     BrowserModule,

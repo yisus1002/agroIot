@@ -130,3 +130,11 @@ body { margin: 0;font-family: 'Nunito Sans', sans-serif; }
       margin-top: -1%!important;
     }
   }
+
+  @media (min-width: 768px){
+    .contPerfil{
+      position: absolute;
+      right: 0;
+    }
+
+  }
