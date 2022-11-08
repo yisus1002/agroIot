@@ -1,6 +1,11 @@
+import { ControlersService } from './../../services/controlers.service'; 
+import { AuthService } from './../../services/auth.service';
+import { Usuario } from './../../models/usuario/usuario.model';
 import { Component, OnInit, ElementRef, ViewChild, Renderer2, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsuarioService } from 'src/app/services/usuario.service';
 import { ValidatorService } from 'src/app/validators/validator.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -19,14 +24,19 @@ export class LoginComponent implements OnInit, AfterViewInit {
   public formuSig!: FormGroup;
 
   constructor(
-    private render2: Renderer2,
-    private form:FormBuilder,
-    private validate:ValidatorService,
+    private render2  : Renderer2,
+    private form     : FormBuilder,
+    // private router   : Router,
+    private validate : ValidatorService,
+    private _sUser   : UsuarioService,
+    private _sAuth   : AuthService,
+    private _sCtrl   : ControlersService,
+
     ) {
       this.crateFormlog();
       this.loadForm1();
       this.createForSig();
-      // this.loadForm2()
+      this.loadForm2() 
     }
 
   ngAfterViewInit(): void {
@@ -38,37 +48,29 @@ export class LoginComponent implements OnInit, AfterViewInit {
   change(): void{
     const logIn = this.logg?.nativeElement;
     const signUp = this.sing?.nativeElement;
-    const container= this.cont?.nativeElement;
-    // console.log(logIn)
+    const container= this.cont?.nativeElement; 
     this.render2.listen(logIn, 'click', ()=>{
       this.render2.removeClass(container,'right-panel-active');
       this.btnlog=true;
-      this.btnsig=false;
-      // console.log(this.btnlog)
+      this.btnsig=false; 
     });
     this.render2.listen(signUp, 'click', ()=>{
       this.render2.addClass(container,'right-panel-active');
       this.btnsig=true;
-      this.btnlog=false;
-      // console.log(this.btnsig)
+      this.btnlog=false; 
     });
 
   };
 
   public get emailNoValid(){   return this.formulog.get('email')?.invalid    && this.formulog.get('email')?.touched;};
   public get passwordNoValid(){return this.formulog.get('password')?.invalid && this.formulog.get('password')?.touched;};
-
-  public get name1NoValid(){   return this.formuSig.get('name1')?.invalid   && this.formuSig.get('name1')?.touched;};
-  public get name2NoValid(){   return this.formuSig.get('name2')?.invalid   && this.formuSig.get('name2')?.touched;};
-  public get lsname1NoValid(){ return this.formuSig.get('lsname1')?.invalid && this.formuSig.get('lsname1')?.touched;};
-  public get lsname2NoValid(){ return this.formuSig.get('lsname2')?.invalid && this.formuSig.get('lsname2')?.touched;};
-  public get email2NoValid(){  return this.formuSig.get('email')?.invalid   && this.formuSig.get('email')?.touched; };
-  public get pass1NoValid(){   return this.formuSig.get('pass1')?.invalid   && this.formuSig.get('pass1')?.touched; };
-  public get pass2NoValid(){ 
-    const pass1 =this.formuSig.get('pass1')?.value;
-    const pass2 =this.formuSig.get('pass2')?.value;
-    return (pass1===pass2) ? false : true;
-   };
+  public get name1NoValid(){   return this.formuSig.get('name1')?.invalid    && this.formuSig.get('name1')?.touched;};
+  public get name2NoValid(){   return this.formuSig.get('name2')?.invalid    && this.formuSig.get('name2')?.touched;};
+  public get lsname1NoValid(){ return this.formuSig.get('lsname1')?.invalid  && this.formuSig.get('lsname1')?.touched;};
+  public get lsname2NoValid(){ return this.formuSig.get('lsname2')?.invalid  && this.formuSig.get('lsname2')?.touched;};
+  public get email2NoValid(){  return this.formuSig.get('email')?.invalid    && this.formuSig.get('email')?.touched; };
+  public get pass1NoValid(){   return this.formuSig.get('pass1')?.invalid    && this.formuSig.get('pass1')?.touched; };
+  public get pass2NoValid(){ const pass1 =this.formuSig.get('pass1')?.value; const pass2 =this.formuSig.get('pass2')?.value; return (pass1===pass2) ? false : true;};
 
 
 
@@ -95,49 +97,65 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   public loadForm1(){
     this.formulog.reset({
-      email     : "",
-      passworf : "",
+      email     : '',
+      password  : '',
     });
   };
 
   public loadForm2(){
     this.formuSig.reset({
-      name1    : "Jesus",
-      name2    : "David",
-      lsname1  : "Garcia",
-      lsname2  : "Hernandez",
-      email    : "yisusgarcia1002@gmail.com",
-      pass1    : "123456789",
-      pass2    : "123456789",
+      name1    : '',
+      name2    : '',
+      lsname1  : '',
+      lsname2  : '',
+      email    : '',
+      pass1    : '',
+      pass2    : '',
     })
   }
 
-  public login(){
-    console.log(this.formulog.valid);
-    console.log(this.formulog);
-    if(this.formulog.invalid){
-      console.log('datos invalidos');
-      console.log(this.formulog.value);
+  public login(){ 
+    if(this.formulog.invalid){ 
       return Object.values(this.formulog.controls).forEach(controls=>{
         controls.markAllAsTouched();
+        this.loadForm1();
       })
-    }else{
-      console.log('data enviada');
-      console.log(this.formulog.value)
+    }else{ 
+      this._sAuth.getToken(this.formulog.value.email, this.formulog.value.password);
     }
   } 
-  public sigup(){
-    console.log(this.formuSig.valid);
-    console.log(this.formuSig);
-    if(this.formuSig.invalid){
-      console.log('datos invalidos');
-      console.log(this.formuSig.value);
+  public sigup(){ 
+    if(this.formuSig.invalid){ 
       return Object.values(this.formuSig.controls).forEach(controls=>{
         controls.markAllAsTouched();
       })
-    }else{
-      console.log('data enviada');
-      console.log(this.formuSig.value)
+    }else{ 
+      const user={ 
+        nombre1: this.formuSig.value.name1,
+        nombre2: this.formuSig.value.name2,
+        apellido1: this.formuSig.value.lsname1,
+        apellido2: this.formuSig.value.lsname2,
+        correo: this.formuSig.value.email,
+        contraseña: this.formuSig.value.pass1,        
+      }
+      this.createUser(user)
+      
     }
   } 
+
+  createUser(user:Usuario){
+    this._sUser.postUser(user)
+    .pipe(  finalize(()=>{ })  )
+    .subscribe({
+      next: (data:any)=>{
+        this._sAuth.getToken(user.correo, user.contraseña); 
+        this.loadForm2()
+      },
+      error:(error:any)=>{
+        this._sCtrl.showToastr_error((error?.error.message).toString().toUpperCase())
+      }
+    })
+  }
+
+  
 }
