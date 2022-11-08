@@ -1,6 +1,6 @@
+import { ControlersService } from './controlers.service';
 import { Usuario } from './../models/usuario/usuario.model';
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { Injectable } from '@angular/core'; 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UsuarioService {
-  public url_user:string= `${environment.API_URL}pequenos-productores/`
-  constructor(
+  // public url_user:string= `${environment.API_URL}pequenos-productores/`
+  constructor(private _sCtrl: ControlersService,
     private http:HttpClient) {
    }
    postUser(usuario:Usuario):Observable<Usuario>{
@@ -18,7 +18,7 @@ export class UsuarioService {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': 'true', 
     })  
-    return (this.http.post<any>(`${this.url_user}`,JSON.stringify(usuario),
+    return (this.http.post<any>(`${this._sCtrl.API_URL}pequenos-productores/`,JSON.stringify(usuario),
     {headers: headers}));
    }
 }

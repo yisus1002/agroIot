@@ -2,14 +2,12 @@ import { ControlersService } from './controlers.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';  
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public url = `${environment.API_URL}auth/login`
   public token:any;
   public idUser:any;
   constructor(private http:HttpClient,
@@ -19,7 +17,7 @@ export class AuthService {
    }
 
   postLogin(correo:any, contraseña:any):Observable<any>{ 
-    return (this.http.post<any>(`${this.url}`,{correo,contraseña}))
+    return (this.http.post<any>(`${this._sCtrl.API_URL}auth/login`,{correo,contraseña}))
   }
 
 
