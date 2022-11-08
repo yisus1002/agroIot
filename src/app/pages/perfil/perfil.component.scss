@@ -1,0 +1,310 @@
+body{
+    margin-top:20px;
+    color: #1a202c;
+    text-align: left;
+    background-color: #e2e8f0;    
+}
+*{
+    font-family: 'Poppins', sans-serif;
+    font-style: 'Poppins', sans-serif;
+}
+a{
+    text-decoration: none;
+}
+.card {
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+    border: none!important;
+}
+.text-area{
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    text-align: justify;
+    box-sizing: border-box;
+    margin: 0;
+    border: 0;
+    outline: none;
+    font-family: inherit;
+    overflow: auto;
+    resize: vertical;
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.2;
+    color: #495057;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    min-height: 200px;
+    -webkit-box-shadow: 1px 2px 7px 5px rgba(182, 182, 182, 0.2); 
+    box-shadow: 1px 2px 7px 5px rgba(198, 198, 198, 0.2);
+}
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: .8rem; 
+}
+
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+}
+
+.bg-gray-300 {
+    background-color: #e2e8f0;
+}
+.h-100 {
+    height: 100%!important;
+}
+.shadow-none {
+    box-shadow: none!important;
+}
+
+.btn-editar{
+    z-index: 2;
+}
+.editar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.btn{
+    border: 0;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: small;
+    margin: 1px;
+    text-align: center; 
+    background-color: transparent;
+    cursor: pointer;
+}
+.btn:hover{
+    box-shadow: 1px 2px 4px 1px rgba(255, 255, 255, 0.478);
+}
+.btn:active{
+    transform: translateY(-2px);
+    transition: .3s;
+}
+.btn-editar:hover{
+    background: #282828fb;
+    color: rgb(222, 224, 254);
+    border-radius: 5px;
+    transition: all 2s;
+} 
+.btn-editar{
+position: relative;
+display: inline-block;
+padding: 5px 10px;
+font-weight: 700;
+text-decoration: none;
+text-transform: uppercase;
+overflow: hidden;
+transition: .5s;
+letter-spacing: 4px;
+cursor: pointer;
+-webkit-user-select: none;
+-moz-user-select: none;
+-khtml-user-select: none;
+-ms-user-select:none;
+}
+.cont{
+    // min-height: 70vh;
+}
+
+.btn-editar span{
+    position: absolute;
+    display: block; 
+}
+.btn-editar span:nth-child(1){
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #03e9f4);
+    animation: btn-anim1 1s linear infinite;
+}  
+@keyframes btn-anim1{
+    0% {
+        left: -100%;
+    }
+    50%,
+    100%{
+        left: 100%;
+    }
+}
+.btn-editar span:nth-child(2){
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03e9f4);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: 0.25s;
+}
+@keyframes btn-anim2{
+    0% {
+        top: -100%;
+    }
+    50%,
+    100%{
+        top: 100%;
+    }
+}
+.btn-editar span:nth-child(3){
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #03e9f4);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: 0.5s;
+}
+@keyframes btn-anim3{
+    0% {
+        right: -100%;
+    }
+    50%,
+    100%{
+        right: 100%;
+    }
+}
+.btn-editar span:nth-child(4){
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03e9f4);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: 0.75s;
+}
+@keyframes btn-anim4{
+    0% {
+        bottom: -100%;
+    }
+    50%,
+    100%{
+        bottom: 100%;
+    }
+}
+.icon-edit{
+    margin: auto; 
+    padding: 2px;
+    margin: 0;
+    font-size: large;
+}
+.btn-guardar{
+    background: #0038FF;
+    color: white;
+    font-weight: 600;
+}
+.btn-cancelar{
+    background: #ff5100;
+    color: white;
+    font-weight: 600;
+}
+.d-flex{
+    display: flex;
+    align-items: center;
+}
+.flex-wrap{
+    display: flex;
+    flex-wrap: wrap;
+}
+.col{
+    width: 100%;
+}
+.row {
+    display: flex;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.text-editar {
+font-family: 'Poppins', sans-serif;
+font-size: 1.6rem;
+font-weight: 600;
+letter-spacing: -0.015em;
+text-align: center;
+
+}
+.text-sm-start{
+    text-align: center!important;
+}
+
+@media (max-width: 576px) {
+
+    .text-sm-start{
+        text-align: start!important;
+    }
+    .editar{
+        display: block;
+    }
+    .cont-btn{
+        justify-content: end;
+        padding:  0 3px;
+    }
+  }
+//   @media (min-width: 576px){
+
+//   }  
+  @media (max-width: 768px) {
+
+    .card-redes{
+        width: 70%;
+    }
+
+    .editar{
+        display: block;
+    }
+    .cont-btn{
+        justify-content: end;
+        padding:  0 3px;
+    }
+  }
+
+// --------------------------------------------------------------------------------------------
+
+    /* Simple CSS3 Fade-in Animation */
+    @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    
+    .fadeIn {
+      opacity:0;
+      -webkit-animation:fadeIn ease-in 1;
+      -moz-animation:fadeIn ease-in 1;
+      animation:fadeIn ease-in 1;
+    
+      -webkit-animation-fill-mode:forwards;
+      -moz-animation-fill-mode:forwards;
+      animation-fill-mode:forwards;
+    
+      -webkit-animation-duration:1s;
+      -moz-animation-duration:1s;
+      animation-duration:1s;
+    }
+    
+    .fadeIn.first {
+      -webkit-animation-delay: 0.4s;
+      -moz-animation-delay: 0.4s;
+      animation-delay: 0.4s;
+    }
+    
+    .fadeIn.second {
+      -webkit-animation-delay: 0.6s;
+      -moz-animation-delay: 0.6s;
+      animation-delay: 0.6s;
+    }
+    
+    .fadeIn.third {
+      -webkit-animation-delay: 0.8s;
+      -moz-animation-delay: 0.8s;
+      animation-delay: 0.8s;
+    }
+    
+    .fadeIn.fourth {
+      -webkit-animation-delay: 1s;
+      -moz-animation-delay: 1s;
+      animation-delay: 1s;
+    }

@@ -1,1 +1,110 @@
-<p>perfil works!</p>
+  
+  <form class="container  fadeIn first my-4" style="height: 80vh;"
+      [formGroup]="formu"
+      (ngSubmit)="send()"
+  >
+      <div class="editar" style=" overflow-wrap: break-word;">
+        <h2 class="text-editar text-capitalize">Datos personales</h2> 
+       <div class="cont-btn d-flex">
+        <a *ngIf="editar===false" (click)="editar=true" class="btn  btn-editar scale-in-center" 
+           >
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <svg style="width:24px;height:24px; color: blue;" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+          </svg>   
+        </a>
+        <button *ngIf="editar" type="submit" class="btn btn-guardar  fadeIn first">Guardar</button>
+        <button *ngIf="editar" (click)="editar=false"type="button" class="btn btn-cancelar fadeIn first"  >Cancelar</button>
+       </div>
+      </div>
+      <div class="container d-flex align-items-center justify-content-center  mt-1" style="position: relative; height: 60vh;">
+             <div class="">
+              <div class="row px-0">
+                <div class="col-sm-3 col-md-3 d-flex rounded-2 justify-content-center col-md-3 mb-2 p-0 " style="max-height: max-content;">
+                  <div class="card col-12 col-md-12" style="box-shadow: none;">
+                    <div class="card-body ">
+                      <div class="col d-flex d-sm-block" >
+                        <div class="d-flex justify-content-center col-3 col-sm-12 col-md-10 col-lg-6" style=" position: relative; overflow: hidden; margin: 0 auto;">
+                         <img class="img-fluid" src="https://i.ibb.co/9Y9fY0b/profile.png" alt="">
+                        </div>
+                        <div class="d-flex  col-9 px-2 align-items-center  col-sm-12 " style="flex-direction: column;" >
+                          <h4 class="fadeIn first text-capitalize m-0 text-sm-start text-center p-2" style="text-align: center; width: 100%; font-weight: 500;">name</h4>
+                       </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+    
+                <div class="col-sm-9 col-md-9 p-a m-0">
+                  <div class="card mb-3">
+                    <div class="card-body d-flex justify-content-center align-items-center">
+                      <div class="container ">
+                        <div class="d-flex justify-content-center">
+                          <p *ngIf="editar===false" class="col-5 mx-2 col-md-4  shadow-sm p-2 rounded-4 scale-in-center">name 1</p>
+                          <p *ngIf="editar===false" class="col-5 mx-2 col-md-4  shadow-sm p-2 rounded-4 scale-in-center">name 2</p>
+                          <mat-form-field *ngIf="editar" class="col-5 mx-2 col-md-4 scale-in-center" appearance="fill">
+                            <mat-label>Nombre 1</mat-label>
+                            <input type="text" matInput formControlName="name1">
+                            <mat-error >
+                              Nombre 1 es <strong>requiredo</strong>
+                            </mat-error>
+                          </mat-form-field>
+                          <mat-form-field *ngIf="editar" class="col-5 mx-2 col-md-4 scale-in-center" appearance="fill">
+                            <mat-label>Nombre 2</mat-label>
+                            <input type="text" matInput formControlName="name2">
+                          </mat-form-field>
+
+                        </div>
+                        <div class="d-flex  justify-content-center">
+                          <p *ngIf="editar===false" class="col-5 mx-2 col-md-4  shadow-sm p-2 rounded-4 scale-in-center">Apellido 1</p>
+                          <p *ngIf="editar===false" class="col-5 mx-2 col-md-4  shadow-sm p-2 rounded-4 scale-in-center">Apellido 2</p>
+                          <mat-form-field *ngIf="editar"  class="col-5 mx-2 col-md-4 scale-in-center" appearance="fill">
+                            <mat-label>Apellido 1</mat-label>
+                            <input type="text" matInput formControlName="lsname1">
+                          </mat-form-field>
+                          <mat-form-field *ngIf="editar"  class="col-5 mx-2 col-md-4 scale-in-center" appearance="fill">
+                            <mat-label>Apellido 2</mat-label>
+                            <input type="text" matInput formControlName="lsname2">
+                            <mat-error >
+                              Apellido 1 es <strong>requiredo</strong>
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="d-flex  justify-content-center">
+                          <p *ngIf="editar===false" class="col-10 mx-2 col-md-8  shadow-sm p-2 rounded-4 scale-in-center">Email</p>
+                          <mat-form-field  *ngIf="editar" class="col-10 mx-2 col-md-8 scale-in-center" appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input type="email" matInput 
+                            formControlName="email"
+                                   placeholder="Ex. pat@example.com">
+                            <mat-error >
+                              Email es <strong>requiredo</strong>
+                            </mat-error>
+                          </mat-form-field>
+
+                        </div>
+                        <div class="d-flex  justify-content-center scale-in-center">
+                          <p *ngIf="editar===false"  class="mx-2 scale-in-center">Contraseña</p>
+                          <p *ngIf="editar===false"  class="col-5 col-md-4  mx-2  shadow-sm p-2 rounded-4 text-muted scale-in-center">********</p>
+                          <mat-form-field *ngIf="editar"  class="col-10 mx-2 col-md-8 scale-in-center" appearance="fill">
+                            <mat-label>Contraseña</mat-label>
+                            <input type="password" matInput formControlName="password">
+                            <mat-error >
+                              Caontraseña es <strong>requireda</strong>
+                            </mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <p style="text-align: center; color: rgb(7, 17, 163);">Ultima actualización el </p>
+              </div>
+             </div>
+      </div>
+  </form>
