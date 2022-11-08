@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
-<div class="container-fluid my-2">
+<app-navbar *ngIf="currentRoute!='/login'"></app-navbar>
+<div class="">
     <router-outlet></router-outlet>
 </div>
