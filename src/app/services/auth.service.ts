@@ -23,7 +23,7 @@ export class AuthService {
 
   getToken(correo:any, contraseña:any){
     this.postLogin(correo, contraseña)
-    .pipe()
+    // .pipe()
     .subscribe({
       next: (data:any)=>{
         this.idUser=data?.idPequeñoProductor;
@@ -31,7 +31,11 @@ export class AuthService {
         this.router.navigate(['/home'])
       },
       error:(error:any)=>{ 
-        this._sCtrl.showToastr_error((error?.error.message).toString())
+        if(error?.error?.message){
+          this._sCtrl.showToastr_error((error?.error?.message).toString())
+        }else{
+          this._sCtrl.showToastr_error(error?.message)
+        }
       }
     })
   }

@@ -77,9 +77,13 @@ export class PerfilComponent implements OnInit {
         this.user=data;
       },
       error: (error:any)=>{
-        this._sCtrl.showToastr_error((error?.error?.message).toString())        
         localStorage.clear()
         location.reload()
+        if(error?.error?.message){
+          this._sCtrl.showToastr_error((error?.error?.message).toString())
+        }else{
+          this._sCtrl.showToastr_error(error?.message);
+        }
       }
     })
   }
@@ -118,7 +122,11 @@ export class PerfilComponent implements OnInit {
         this._sCtrl.showToastr_success(`${data?.nombre1} ${data?.apellido1} datos actualizados`)
       },
       error:(error:any)=>{
-       this._sCtrl.showToastr_error(`${error?.error?.message}`)
+        if(error?.error?.message){
+          this._sCtrl.showToastr_error(`${error?.error?.message}`)
+        }else{
+          this._sCtrl.showToastr_error(error?.message)
+        }
       }
     })
   }

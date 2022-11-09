@@ -152,7 +152,11 @@ export class LoginComponent implements OnInit, AfterViewInit {
         this.loadForm2()
       },
       error:(error:any)=>{
-        this._sCtrl.showToastr_error((error?.error.message).toString().toUpperCase())
+        if(error?.error?.message){
+          this._sCtrl.showToastr_error((error?.error.message).toString().toUpperCase())
+        }else{
+          this._sCtrl.showToastr_error(error?.message)
+        }
       }
     })
   }
