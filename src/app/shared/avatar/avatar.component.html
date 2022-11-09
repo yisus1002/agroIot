@@ -5,5 +5,5 @@
 </button>
 <mat-menu #menu="matMenu">
   <button routerLinkActive="active"  [routerLink]="['perfil']" mat-menu-item>Perfil</button>
-  <button mat-menu-item>Salir</button>
+  <button mat-menu-item (click)="exit()">Salir</button>
 </mat-menu>

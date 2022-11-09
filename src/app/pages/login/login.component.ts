@@ -115,10 +115,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   public login(){ 
-    if(this.formulog.invalid){ 
+    if(this.formulog.invalid){  
+      
       return Object.values(this.formulog.controls).forEach(controls=>{
-        controls.markAllAsTouched();
-        this.loadForm1();
+        controls.markAllAsTouched()
       })
     }else{ 
       this._sAuth.getToken(this.formulog.value.email, this.formulog.value.password);

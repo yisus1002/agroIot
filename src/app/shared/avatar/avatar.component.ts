@@ -11,5 +11,8 @@ export class AvatarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  exit(){
+    localStorage.clear()
+    location.reload()
+  }
 }

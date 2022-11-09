@@ -5,7 +5,7 @@ export class Usuario{
     nombre1: string;
     apellido1: string;
     correo: string;
-    contraseña:any;
+    contraseña?:any;
     
     constructor(
         idPequeñoProductor:number,

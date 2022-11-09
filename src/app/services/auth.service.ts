@@ -26,8 +26,8 @@ export class AuthService {
     .pipe()
     .subscribe({
       next: (data:any)=>{
-        this.saveToken(data?.token);
         this.idUser=data?.idPequeñoProductor;
+        this.saveToken(data?.token, this.idUser);
         this.router.navigate(['/home'])
       },
       error:(error:any)=>{ 
@@ -37,9 +37,10 @@ export class AuthService {
   }
 
 
-  saveToken(token:string){
+  saveToken(token:string, id:number){
     this.token =token;
     localStorage.setItem('token', token);
+    localStorage.setItem('id', id.toString());
     let hoy = new Date();
     hoy.setSeconds(86400);
     localStorage.setItem('expira', hoy.getTime().toString())
@@ -70,4 +71,5 @@ export class AuthService {
     // true or false
     // return !this.jwtHelper.isTokenExpired(token);
   }
+
 }
