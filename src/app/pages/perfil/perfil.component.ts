@@ -71,6 +71,7 @@ export class PerfilComponent implements OnInit {
       this.loadForm();
       this.editar=false;
       this.changeC=false;
+      this.formu.removeControl('password')
     }))
     .subscribe({
       next: (data:any)=>{
@@ -129,5 +130,11 @@ export class PerfilComponent implements OnInit {
         }
       }
     })
+  }
+  Cancelar(){
+    this.editar=false; 
+    this.changeC=false
+    this.formu.removeControl('password')
+    this.loadForm()
   }
 }

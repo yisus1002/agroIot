@@ -1,5 +1,5 @@
   
-  <form class="container  fadeIn first my-4" style="height: 80vh;" autocomplete="off"
+  <form class="container  fadeIn first my-4" style="height: 80vh;" autocomplete="new-off"
       [formGroup]="formu"
       (ngSubmit)="send()"
   >
@@ -17,7 +17,7 @@
           </svg>   
         </a>
         <button *ngIf="editar" type="submit" class="btn btn-guardar  fadeIn first">Guardar</button>
-        <button *ngIf="editar" (click)="editar=false; changeC=false"type="button" class="btn btn-cancelar fadeIn first"  >Cancelar</button>
+        <button *ngIf="editar" (click)="Cancelar()"type="button" class="btn btn-cancelar fadeIn first"  >Cancelar</button>
        </div>
       </div>
       <div class="container  d-flex align-items-center justify-content-center  mt-1" style="position: relative; min-height: 60vh;">
@@ -49,7 +49,7 @@
                             <mat-label>Nombre 1</mat-label>
                             <input type="text" matInput formControlName="name1">
                             <mat-error >
-                              Nombre 1 es <strong>requiredo</strong>
+                             El nombre 1 es <strong>requiredo</strong>
                             </mat-error>
                           </mat-form-field>
                           <mat-form-field *ngIf="editar" class="col-5 mx-2 col-md-4 scale-in-center" appearance="fill">
@@ -69,7 +69,7 @@
                             <mat-label>Apellido 2</mat-label>
                             <input type="text" matInput formControlName="lsname2">
                             <mat-error >
-                              Apellido 1 es <strong>requiredo</strong>
+                             El apellido 1 es <strong>requiredo</strong>
                             </mat-error>
                           </mat-form-field>
                         </div>
@@ -81,7 +81,7 @@
                             formControlName="email"
                                    placeholder="Ex. pat@example.com">
                             <mat-error >
-                              Email es <strong>requiredo</strong>
+                              El email es <strong>requiredo</strong>
                             </mat-error>
                           </mat-form-field>
 
@@ -102,7 +102,7 @@
                             <input type="password" autocomplete="new-password" matInput formControlName="password">
                             
                             <mat-error >
-                              Caontraseña es <strong>requireda</strong>
+                             La contraseña es <strong>requireda</strong>
                             </mat-error>
                           </mat-form-field> 
                         </div>
