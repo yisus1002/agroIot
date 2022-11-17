@@ -138,6 +138,12 @@ body { margin: 0;font-family: 'Nunito Sans', sans-serif; }
     }
 
   }
+  .text-shadow{
+    text-shadow: -4px -4px 4px rgb(227, 227, 227);
+  }
+  .text-green{
+    color: rgb(47, 220, 255);
+  }
   .scale-in-center {
     -webkit-animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
             animation: scale-in-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
