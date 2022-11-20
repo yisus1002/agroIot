@@ -1,3 +1,4 @@
+import { TarjetaCultivoComponent } from './shared/tarjeta-cultivo/tarjeta-cultivo.component';
 import { AvatarComponent } from './shared/avatar/avatar.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { NgModule } from '@angular/core';
@@ -26,6 +27,7 @@ import { FormulariocultivoComponent } from './shared/formulariocultivo/formulari
     PerfilComponent,
     AvatarComponent,
     FormulariocultivoComponent,
+    TarjetaCultivoComponent,
   ],
   imports: [
     BrowserModule,
