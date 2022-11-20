@@ -13,6 +13,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { FormulariocultivoComponent } from './shared/formulariocultivo/formulariocultivo.component';
 
 
 
@@ -24,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
     LoginComponent,
     PerfilComponent,
     AvatarComponent,
+    FormulariocultivoComponent,
   ],
   imports: [
     BrowserModule,

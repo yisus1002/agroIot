@@ -1,0 +1,29 @@
+input, select{
+    background-color: white;
+    border: none; 
+    padding: 12px 15px;
+    margin: 2px 0;
+    width: 100%;
+    box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+    outline: none;
+}
+// table{
+// }
+.tablee{
+    border-radius: 8px!important;
+    box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.25)!important;
+
+}
+.mat-mini-fab{
+background-color: #ffff;
+}
+thead{
+    background-color: #3DB9FF!important;
+}
+textarea{
+    margin-top: 8px;
+    border: none!important;
+    box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.25)!important;
+    resize: none!important;
+}
