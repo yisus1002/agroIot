@@ -8,59 +8,57 @@
     >
       <div class="modal-content">
         <div class="container d-flex p-2" style="justify-content: space-between;">
-          <h1 class="h1 m-1 text-center fs-4 fw-semibold" style="color: #8C5708;" id="formucultivoLabel">Agregar un cultivo</h1>
+          <h1 class="h1 m-1 text-center fs-4 fw-semibold" style="color: #8C5708;" id="formucultivoLabel">{{namefor}} un cultivo</h1>
           <button type="button"  mat-icon-button  data-bs-dismiss="modal" aria-label="Close">
             <mat-icon class="text-danger">close</mat-icon>
           </button>
         </div>
         <hr>
-        <div class="modal-body  p-2">
+        <div class="modal-body   p-2">
           <div class="cantainer-fluid d-flex flex-wrap justify-content-around">
             <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
                <p *ngIf="descripcion" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
                <label class="h6 m-0 text-capitalize" for="descrip">Cultivo</label>
-                <textarea formControlName="descripcion" class="form-control" name="" id="descrip" placeholder="Ingrese una descripción" ></textarea>
+                <textarea formControlName="descripcion" class="" name="" id="descrip" placeholder="Ingrese una descripción" ></textarea>
             </div>
-            <div class="p-1 col-6 col-sm-3 col-md-2 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
-               <p *ngIf="departamento" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
-              <label class="h6 m-0" for="departamento">Departamento</label>
-              <select name="" id="departamento" formControlName="departamento"> 
-                <option *ngFor="let item of opciones" [value]="item?.cod">{{item?.name}}</option>
-              </select>
+            <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
+              <p *ngIf="hectareas" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
+                <label class="h6 m-0" for="tmcultivo">Tamaño del cultivo </label>
+                <input formControlName="hectareas" type="number" min="1"  id="tmcultivo" placeholder="Tamaño en hectareas"> 
             </div>
-            <div class="p-1 col-6 col-sm-5 col-md-2 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
-               <p *ngIf="municipio" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
-              <label class="h6 m-0" for="municipio">Municipio</label>
-              <select formControlName="municipio" id="municipio">
-                <option *ngFor="let item of opciones" [value]="item?.cod">{{item?.name}}</option>
-              </select>
-            </div>
-            <div class="p-1 col-6 col-sm-3 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
-               <p *ngIf="vereda" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
-              <label class="h6 m-0" for="vereda">Vereda</label>
-              <input type="text" id="vereda" formControlName="vereda" placeholder="Ingrese el nombre de la vereda">
+            <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
+              <p *ngIf="fecha_siembre" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
+              <label class="h6 m-0" for="fsiembre">Fecha de siembre</label>
+              <input formControlName="fecha_siembre" type="date" id="fsiembre" placeholder="Fec">
+               
             </div>
           </div>
-          <div class="cantainer-fluid d-flex flex-wrap justify-content-around">
+          <div class="cantainer-fluid d-flex flex-wrap justify-content-around  ">
             <div class="container-fluid p-1 col-12 d-flex flex-wrap" style="justify-content: space-evenly;">
-              <div class="col-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
-                <p *ngIf="hectareas" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
-                <label class="h6 m-0" for="tmcultivo">Tamaño del cultivo </label>
-                <input formControlName="hectareas" type="number" min="1"  id="tmcultivo" placeholder="Tamaño en hectareas">
+              <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
+                <p *ngIf="departamento" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
+                <label class="h6 m-0" for="departamento">Departamento</label>
+                <select name="" id="departamento" formControlName="departamento"> 
+                  <option *ngFor="let item of _crtSer.opciones" [value]="item?.cod">{{item?.name}}</option>
+                </select>
               </div>
-              <div class="col-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
-                <p *ngIf="fecha_siembre" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
-                <label class="h6 m-0" for="fsiembre">Fecha de siembre</label>
-                <input formControlName="fecha_siembre" type="date" id="fsiembre" placeholder="Fec">
+              <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
+                <p *ngIf="municipio" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
+              <label class="h6 m-0" for="municipio">Municipio</label>
+              <select formControlName="municipio" id="municipio">
+                <option *ngFor="let item of _crtSer.opciones" [value]="item?.cod">{{item?.name}}</option>
+              </select>
               </div>
-              <!-- <div class="col-10 col-md-4 p-2 d-flex " style="justify-content: center ; align-items: center;flex-direction: column;">
-              
-              </div> -->
+              <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
+                <p *ngIf="vereda" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
+              <label class="h6 m-0" for="vereda">Vereda</label>
+              <input type="text" id="vereda" formControlName="vereda" placeholder="Ingrese el nombre de la vereda">
+              </div>
             </div>
-            <div class="p-1 col-12  col-md-8  d-flex justify-content-center" style="flex-direction: column; align-items: center;">
+            <div class="p-1 col-12  col-md-10  d-flex justify-content-center" style="flex-direction: column; align-items: center;">
               <p *ngIf="gastosV" class="m-1 fw-semibold alert">Este campo es obligatorio</p> 
               <div class="tablee ">
-                <table class="table shadow-sm">
+                <table class="table shadow-sm table table-hover">
                   <thead>
                     <tr>
                       <th scope="col" class="text-capitalize text-center">gastos</th>

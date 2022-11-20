@@ -1,5 +1,6 @@
+import { ControlersService } from './../../services/controlers.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnInit, Input  } from '@angular/core';
 // import { ValidatorService } from 'src/app/validators/validator.service';
 
 @Component({
@@ -9,25 +10,23 @@ import { AfterContentInit, Component, OnInit } from '@angular/core';
 })
 export class FormulariocultivoComponent implements OnInit, AfterContentInit {
   
+  @Input() namefor!:string;
   public formu!:    FormGroup;
   public gasto :any[]=[];
-  public opciones:any=[
-    {cod:'1', name: 'numero1'},
-    {cod:'2', name: 'numero2'},
-    {cod:'3', name: 'numero3'},
-  ]
+
 
   constructor(
     
     // private validate : ValidatorService,
     private form     : FormBuilder,
+    public _crtSer   : ControlersService,
 
   ) { 
     this.createForm(); 
     setTimeout(()=>{
       // Pruebas
       this.loadForm();
-      this.opciones.unshift({
+      this._crtSer.opciones.unshift({
         cod: '', name: 'Selecione'
       })
     },1000)
@@ -103,12 +102,12 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit {
   }
   public loadForm(){
     this.formu.reset({
-      hectareas :"12",
-      descripcion :"wdawdaw",
+      hectareas :"",
+      descripcion :"",
       fecha_siembre :"",
-      departamento :"2",
-      municipio :"3",
-      vereda :"wedawed",
+      departamento :"",
+      municipio :"",
+      vereda :"",
       // gastos:
     });
 this.gasto=    [
