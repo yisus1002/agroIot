@@ -16,7 +16,7 @@ export class TarjetaCultivoComponent implements OnInit {
   ngOnInit(): void {
   }
   watchCult(){
-    this.router.navigate(['/', this.index])
+    this.router.navigate(['/cultivo-detalle', this.index])
   }
   deletedCult(){
     console.log(this.index);

@@ -1,0 +1,72 @@
+@keyframes growProgressBar {
+    0%, 33% { --pgPercentage: 0; }
+    100% { --pgPercentage: var(--value); }
+  }
+  
+  @property --pgPercentage {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 0;
+  }
+  
+  div[role="progre"],div[role="progre2"],div[role="progre3"] {
+    --size: 10rem;
+    --fg: #33caf8;
+    --bg: rgb(255, 255, 255);
+    // --pgPercentage: var(--value);
+    animation: growProgressBar 3s 1 forwards;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: 
+      // radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
+      conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: calc(var(--size) / 5);
+    color: var(--fg);
+    box-shadow: 2px 4px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  div[role="progre2"]{
+    --size: 8rem;
+    scale: .9; 
+    --fg: #BD00FF;
+    position: absolute;
+  }
+  div[role="progre3"]{
+    --size: 6rem;
+    scale: .9; 
+    --fg: #AD5421;
+    position: absolute;
+  }
+  .iot{ 
+    z-index: 100;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(15, 255, 67);
+    font-weight: 600;
+    padding: 16px;
+    background-color: #ffff;
+    border-radius: 100%;
+  }
+
+  input, select, textarea{
+    background-color: white;
+    border: none; 
+    padding: 12px 15px;
+    margin: 2px 0;
+    width: 100%;
+    box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+    outline: none;
+}
+// table{
+// }
+.tablee{
+    border-radius: 8px!important;
+    box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.25)!important;
+
+}

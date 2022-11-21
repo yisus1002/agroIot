@@ -15,7 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { FormulariocultivoComponent } from './shared/formulariocultivo/formulariocultivo.component';
-
+import { CultivoDetalleComponent } from './pages/cultivo-detalle/cultivo-detalle.component';
 
 
 @NgModule({
@@ -28,6 +28,7 @@ import { FormulariocultivoComponent } from './shared/formulariocultivo/formulari
     AvatarComponent,
     FormulariocultivoComponent,
     TarjetaCultivoComponent,
+    CultivoDetalleComponent,
   ],
   imports: [
     BrowserModule,

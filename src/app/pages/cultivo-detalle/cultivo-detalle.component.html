@@ -1,0 +1,77 @@
+<div class="container-fluid mt-3">
+    <div class="container">
+        <h1 class="text-start mb-0">Cultivo 001</h1>
+    </div>
+    <div class="d-flex flex-wrap " style="justify-content: center; position: relative;">
+        <div class="col-6 col-sm  col-md-3  d-flex  justify-content-center " style="align-items:center ; flex-direction: column; position: relative;">
+            <div class="" role="progre"          aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="z-index:5;" [style]="'--value:'+ tem"></div>
+            <div class="progre2" role="progre2"  aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="z-index:5;" [style]="'--value:'+ hum"></div>
+            <div class="progre2" role="progre3"  aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="z-index:5;" [style]="'--value:'+ ph"></div>
+            <h2 class="iot">IOT</h2>
+        </div>
+        <div class="col-6 col-sm  col-md-5 p-3 d-flex  justify-content-center " style=" flex-direction: column;">
+            <h3 class="my-0 fw-semibold">Temperatura</h3>
+            <div class="progress mb-2">
+                <div class="progress-bar bg-info" role="progressbar" aria-label="Example with label" [style]="'width:'+ tem+'%' " aria-valuenow="65" aria-valuemin="65" aria-valuemax="100">35 °C</div>
+            </div>
+            <h3 class="my-0 fw-semibold">Humedad</h3>
+            <div class="progress mb-2">
+                <div class="progress-bar" role="progressbar" aria-label="Example with label" [style]="'width:'+hum+'%'" style="width: 67%; background-color: #BD00FF;" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100">37 °C</div>
+            </div>
+            <h3 class="my-0 fw-semibold">PH</h3>
+            <div class="progress mb-2">
+                <div class="progress-bar" role="progressbar" aria-label="Example with label" [style]="'width:'+ph+'%'" style="width: 70%;background-color: #AD5421;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">7</div>
+              </div>
+        </div>
+        <div class="col-8 col-sm  col-md-4 d-flex  justify-content-center ">
+        <div class="card shadow border-0 p-3 col-12 col-sm-8 col-md-6 rounded-4" style="border-radius: 43px!important;">
+            <h3 class="h4 text-center" style="color: rgb(0, 0, 0);">Registro diario</h3>
+            <div class="col d-flex" style="flex-direction: column; font-weight: 600;" >
+                <p class="d-flex justify-content-between " style="color: #F53333; font-weight: 500;"> <span >Temperarua </span> <span> 35° C</span></p>
+                <p class="d-flex justify-content-between " style="color: #3C72FF; font-weight: 500;"> <span >Temperarua </span> <span> 35° C</span></p>
+                <p class="d-flex justify-content-between " style="color: #D737FF; font-weight: 500;"> <span >Humedad </span> <span>°C</span></p>
+                <p class="d-flex justify-content-between " style="color: #00FC56; font-weight: 500;"> <span >Humedad </span> <span>°C</span></p>
+                <p class="d-flex justify-content-between " style="color: #F6FA2D; font-weight: 500;"> <span >Ph </span> <span>8</span></p>
+                <p class="d-flex justify-content-between " style="color: #FFA217; font-weight: 500;"> <span >Ph </span> <span>8</span></p>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="container-fluid shadow rounded-4 mt-4 pb-1 ">
+        <div class="col d-flex flex-wrap justify-content-center p-0 m-0" style="flex-direction: row; ">
+            <div class="p-2  col-5 col-md-4   d-flex justify-content-center" style="flex-direction: column;">
+                <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Descripción: </span><br>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi incidunt ab velit!
+                </p>
+                <p  class="fw-normal">1 Hectarea </p>
+            </div>
+            <div class="p-2  col-5 col-md-4   d-flex justify-content-center" style="flex-direction: column;">
+                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Departamento: </span> <span class="">ceweq wd vvevcse</span></p>
+                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Municipio: </span> <span class="">ceweq wd vvevcse</span></p>
+                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Vereda: </span> <span class="">ceweq wd vvevcse</span></p>
+            </div>
+            <div class="p-2  col-5 col-md-4   d-flex justify-content-center" style="flex-direction: column;">
+                <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Fecha de siempre: </span> <span class="">01/12/2020</span></p>
+                <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Gastos totales: </span> <span class="">3000</span></p>
+                </div>
+        </div>
+        <div class="tablee col-10 col-sm-9 col-md-8 " style="margin: 0 auto;">
+            <table class="table mb-4 shadow-sm table table-hover">
+              <thead style="background-color: #999999!important;">
+                <tr>
+                  <th scope="col" class="text-capitalize text-center">gastos</th>
+                  <th scope="col" class="text-capitalize text-center">cantidad</th>
+                  <th scope="col" class="text-capitalize text-center">descripción</th> 
+                </tr>
+              </thead>
+              <tbody  class="table-group-divider">
+                <tr >
+                  <td align="center"  ><span>123456</span></td>
+                  <td align="center"  ><span>321</span></td>
+                  <td align="center"  ><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo dolor error sit.</span></td>
+                </tr> 
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>
