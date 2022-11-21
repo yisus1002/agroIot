@@ -24,7 +24,7 @@
               </div>
         </div>
         <div class="col-8 col-sm  col-md-4 d-flex  justify-content-center ">
-        <div class="card shadow border-0 p-3 col-12 col-sm-8 col-md-6 rounded-4" style="border-radius: 43px!important;">
+        <div class="card shadow border-0 p-3 col-12 col-sm-11 col-md-6 rounded-4" style="border-radius: 43px!important;">
             <h3 class="h4 text-center" style="color: rgb(0, 0, 0);">Registro diario</h3>
             <div class="col d-flex" style="flex-direction: column; font-weight: 600;" >
                 <p class="d-flex justify-content-between " style="color: #F53333; font-weight: 500;"> <span >Temperarua </span> <span> 35° C</span></p>
@@ -37,7 +37,11 @@
         </div>
         </div>
     </div>
-    <div class="container-fluid shadow rounded-4 mt-4 pb-1 ">
+    <div class="container-fluid shadow rounded-4 mt-4 pb-1 " style="position: relative;">
+        <div class="container-fluid d-flex justify-content-end py-2">
+            <button  mat-mini-fab class="btn"><mat-icon style="color: rgb(0, 213, 255);" data-bs-toggle="modal" data-bs-target="#formucultivo">edit</mat-icon></button>
+            <button  mat-mini-fab class="btn"><mat-icon style="color: red;">delete</mat-icon></button>
+        </div>
         <div class="col d-flex flex-wrap justify-content-center p-0 m-0" style="flex-direction: row; ">
             <div class="p-2  col-5 col-md-4   d-flex justify-content-center" style="flex-direction: column;">
                 <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Descripción: </span><br>
@@ -75,3 +79,5 @@
           </div>
     </div>
 </div>
+
+<app-formulariocultivo namefor="Editar"></app-formulariocultivo>
