@@ -27,4 +27,26 @@ export class CultivoService {
     return this.http.get<any>(`${this._sCtrl.API_URL}cultivo/${id_cultivo}`, {headers: headers})
   }
 
+  postCultivo(token:any, id_vereda:any,cultivo:any):Observable<any>{
+    const headers = new HttpHeaders({ 
+      'Authorization': `Bearer ${token}` 
+    })
+    return this.http.post<any>(`${this._sCtrl.API_URL}cultivo/${id_vereda}/vereda`, cultivo,{headers:headers});
+  }
+
+  putCultivo(token:any, id_cultivo:any,cultivo:any):Observable<any>{
+    const headers = new HttpHeaders({ 
+      'Authorization': `Bearer ${token}` 
+    })
+    return this.http.put<any>(`${this._sCtrl.API_URL}cultivo/${id_cultivo}`, cultivo, {headers:headers});
+  }
+
+
+  deletCultivo(token:any, id_cultivo:any):Observable<any>{
+    const headers = new HttpHeaders({ 
+      'Authorization': `Bearer ${token}` 
+    })
+    return this.http.delete<any>(`${this._sCtrl.API_URL}cultivo/${id_cultivo}`, {headers:headers});
+  }
+
 }
