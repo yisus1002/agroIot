@@ -1,6 +1,9 @@
+import { Event } from '@angular/router';
 import { ControlersService } from './../../services/controlers.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AfterContentInit, Component, OnInit, Input  } from '@angular/core';
+import { UbicacionService } from 'src/app/services/ubicacion.service';
+import { finalize } from 'rxjs';
 // import { ValidatorService } from 'src/app/validators/validator.service';
 
 @Component({
@@ -13,6 +16,7 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit {
   @Input() namefor!:string;
   public formu!:    FormGroup;
   public gasto :any[]=[];
+  // public id_depto:any;
 
 
   constructor(
@@ -20,15 +24,21 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit {
     // private validate : ValidatorService,
     private form     : FormBuilder,
     public _crtSer   : ControlersService,
+    public _sUbi     : UbicacionService,
 
   ) { 
     this.createForm(); 
     setTimeout(()=>{
       // Pruebas
       this.loadForm();
-      this._crtSer.opciones.unshift({
-        cod: '', name: 'Selecione'
+      this._crtSer.opcionesMuni.unshift({
+        idMunicipio:'', nombre: 'Seleccione un municipio'
       })
+      this._crtSer.opcionesVrda.unshift({
+        idVereda:'', nombre: 'Seleccione una vereda'
+      })
+      this.formu.get('municipio')?.disable()
+      this.formu.get('vereda')?.disable()
     },1000)
   }
 
@@ -46,7 +56,91 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit(): void {
+    this.getDepartamento()
   }
+
+  public getDepartamento(){
+    this._sUbi.getDepartamento().
+    pipe(finalize(()=>{
+      this._crtSer.opcionesDpto.unshift({
+        idDepartamento:'', nombre: 'Seleccione un departamento'
+      })
+    }))
+    .subscribe({
+      next: (data:any)=>{ 
+        this._crtSer.opcionesDpto=data
+        
+      },
+      error: (err:any)=>{
+        console.log(err);
+        
+      }
+    })
+  }
+
+  getMunicipio(){ 
+    let id= this.formu.get('departamento')?.value;
+    if(id>0){
+      this._sUbi.getDepartamentoId(id)
+      .pipe(finalize(()=>{
+        this._crtSer.opcionesMuni.unshift({
+          idMunicipio:'', nombre: 'Seleccione un municipio'
+        }); 
+      this.formu.get('municipio')?.enable()
+      }))
+      .subscribe({
+        next: (data:any)=>{
+          this._crtSer.opcionesMuni=[]
+          this._crtSer.opcionesMuni=data?.municipios 
+        },
+        error: (err:any)=>{
+          console.log(err);
+        }
+      })
+    }else{
+      this._crtSer.opcionesMuni=[]
+      this._crtSer.opcionesVrda=[];
+      this._crtSer.opcionesMuni.unshift({
+        idMunicipio:'', nombre: 'Seleccione un municipio'
+      });
+      this._crtSer.opcionesVrda.unshift({
+        idVereda:'', nombre: 'Seleccione una vereda'
+      })
+      this.formu.get('municipio')?.disable()
+      this.formu.get('vereda')?.disable()
+    }
+  }
+
+  getVereda(){
+      let id =this.formu.get('municipio')?.value;
+      if(id>0){
+        this._sUbi.getMunicipioId(id)
+        .pipe(finalize(()=>{
+          this._crtSer.opcionesVrda.unshift({
+            idVereda:'', nombre: 'Seleccione una vereda'
+          })
+          this.formu.get('vereda')?.enable()
+        }))
+        .subscribe({
+          next: (data:any)=>{
+            this._crtSer.opcionesVrda=[]
+            this._crtSer.opcionesVrda=data?.veredas
+          },
+          error: (err:any)=>{
+            console.log(err);
+            
+          }
+        })
+      }else{
+        this._crtSer.opcionesVrda=[];
+        this._crtSer.opcionesVrda.unshift({
+          idVereda:'', nombre: 'Seleccione una vereda'
+        })
+        this.formu.get('vereda')?.disable()
+      }
+  }
+
+  
 
 
   public createForm(){

@@ -7,11 +7,23 @@ import { ToastrService } from 'ngx-toastr';
 export class ControlersService {
    API_URL:string= 'https://iot-restserver-production.up.railway.app/';
   constructor( private toastr: ToastrService) { }
-  public opciones:any=[
-    {cod:'1', name: 'numero1'},
-    {cod:'2', name: 'numero2'},
-    {cod:'3', name: 'numero3'},
-  ]
+//   {
+//     "idDepartamento": 1,
+//     "nombre": "CORDOBA",
+//     "creteadAt": "2022-11-16T19:14:31.801Z",
+//     "updatedAt": "2022-11-16T19:14:31.801Z",
+//     "municipios": [
+//         {
+//             "idMunicipio": 1,
+//             "nombre": "MONTERIA",
+//             "creteadAt": "2022-11-16T14:15:59.000Z",
+//             "updatedAt": "2022-11-16T14:15:59.000Z"
+//         }
+//     ]
+// }
+  public opcionesDpto:any=[];
+  public opcionesMuni:any=[];
+  public opcionesVrda:any=[]; 
     // toast ---------------------------
     showToastr_success(title:string){
       this.toastr.success(`${title}`)

@@ -38,21 +38,23 @@
               <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
                 <p *ngIf="departamento" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
                 <label class="h6 m-0" for="departamento">Departamento</label>
-                <select name="" id="departamento" formControlName="departamento"> 
-                  <option *ngFor="let item of _crtSer.opciones" [value]="item?.cod">{{item?.name}}</option>
+                <select name="" id="departamento" formControlName="departamento" (change)="getMunicipio()"> 
+                  <option *ngFor="let item of _crtSer.opcionesDpto" [value]="item?.idDepartamento">{{item?.nombre}}</option>
                 </select>
               </div>
               <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
                 <p *ngIf="municipio" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
               <label class="h6 m-0" for="municipio">Municipio</label>
-              <select formControlName="municipio" id="municipio">
-                <option *ngFor="let item of _crtSer.opciones" [value]="item?.cod">{{item?.name}}</option>
+              <select formControlName="municipio" id="municipio" (change)="getVereda()">
+                <option *ngFor="let item of _crtSer.opcionesMuni" [value]="item?.idMunicipio">{{item?.nombre}}</option>
               </select>
               </div>
               <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
                 <p *ngIf="vereda" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
               <label class="h6 m-0" for="vereda">Vereda</label>
-              <input type="text" id="vereda" formControlName="vereda" placeholder="Ingrese el nombre de la vereda">
+              <select formControlName="vereda" id="municipio" >
+                <option *ngFor="let item of _crtSer.opcionesVrda" [value]="item?.idVereda">{{item?.nombre}}</option>
+              </select> 
               </div>
             </div>
             <div class="p-1 col-12  col-md-10  d-flex justify-content-center" style="flex-direction: column; align-items: center;">
