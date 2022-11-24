@@ -5,6 +5,7 @@
     <form class="modal-dialog modal-xl"
     [formGroup]="formu"
     (ngSubmit)="enviar()"
+    autocomplete="none"
     >
       <div class="modal-content">
         <div class="container d-flex p-2" style="justify-content: space-between;">
@@ -38,21 +39,21 @@
               <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
                 <p *ngIf="departamento" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
                 <label class="h6 m-0" for="departamento">Departamento</label>
-                <select name="" id="departamento" formControlName="departamento" (change)="getMunicipio()"> 
+                <select name="" id="departamento" formControlName="departamento" (change)="getMunicipio()"  autocomplete="none"> 
                   <option *ngFor="let item of _crtSer.opcionesDpto" [value]="item?.idDepartamento">{{item?.nombre}}</option>
                 </select>
               </div>
               <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
                 <p *ngIf="municipio" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
               <label class="h6 m-0" for="municipio">Municipio</label>
-              <select formControlName="municipio" id="municipio" (change)="getVereda()">
+              <select formControlName="municipio" id="municipio" (change)="getVereda()"  autocomplete="none">
                 <option *ngFor="let item of _crtSer.opcionesMuni" [value]="item?.idMunicipio">{{item?.nombre}}</option>
               </select>
               </div>
               <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
                 <p *ngIf="vereda" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
               <label class="h6 m-0" for="vereda">Vereda</label>
-              <select formControlName="vereda" id="municipio" >
+              <select formControlName="vereda" id="municipio"  autocomplete="none">
                 <option *ngFor="let item of _crtSer.opcionesVrda" [value]="item?.idVereda">{{item?.nombre}}</option>
               </select> 
               </div>

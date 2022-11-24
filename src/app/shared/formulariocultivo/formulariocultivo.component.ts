@@ -1,7 +1,7 @@
 import { Event } from '@angular/router';
 import { ControlersService } from './../../services/controlers.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AfterContentInit, Component, OnInit, Input  } from '@angular/core';
+import { AfterContentInit, Component, OnInit, Input, DoCheck  } from '@angular/core';
 import { UbicacionService } from 'src/app/services/ubicacion.service';
 import { finalize } from 'rxjs';
 // import { ValidatorService } from 'src/app/validators/validator.service';
@@ -11,7 +11,7 @@ import { finalize } from 'rxjs';
   templateUrl: './formulariocultivo.component.html',
   styleUrls: ['./formulariocultivo.component.scss']
 })
-export class FormulariocultivoComponent implements OnInit, AfterContentInit {
+export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoCheck {
   
   @Input() namefor!:string;
   public formu!:    FormGroup;
@@ -41,6 +41,9 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit {
       this.formu.get('vereda')?.disable()
     },1000)
   }
+  ngDoCheck(): void {
+    
+  }
 
   get gastos(){   return this.formu.get('gastos') as FormArray};
   get gastosV(){   return this.formu.get('gastos')?.invalid && this.formu.get('gastos')?.touched};
@@ -53,6 +56,8 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit {
 
 
   ngAfterContentInit(): void { 
+    console.log('hola');
+    
   }
 
   ngOnInit(): void {
@@ -68,12 +73,23 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit {
     }))
     .subscribe({
       next: (data:any)=>{ 
-        this._crtSer.opcionesDpto=data
+        this._crtSer.opcionesDpto=data.sort((a:any,b:any)=> {
+          if (a.nombre > b.nombre) {
+            return 1;
+          }
+          if (a.nombre < b.nombre) {
+            return -1;
+          }
+          return 0;
+        })
         
       },
-      error: (err:any)=>{
-        console.log(err);
-        
+      error: (error:any)=>{
+        if(error?.error?.message){
+          this._crtSer.showToastr_error((error?.error.message).toString().toUpperCase())
+        }else{
+          this._crtSer.showToastr_error(error?.message)
+        }
       }
     })
   }
@@ -91,10 +107,22 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit {
       .subscribe({
         next: (data:any)=>{
           this._crtSer.opcionesMuni=[]
-          this._crtSer.opcionesMuni=data?.municipios 
+          this._crtSer.opcionesMuni=data?.municipios.sort((a:any,b:any)=> {
+            if (a.nombre > b.nombre) {
+              return 1;
+            }
+            if (a.nombre < b.nombre) {
+              return -1;
+            }
+            return 0;
+          })
         },
-        error: (err:any)=>{
-          console.log(err);
+        error: (error:any)=>{
+          if(error?.error?.message){
+            this._crtSer.showToastr_error((error?.error.message).toString().toUpperCase())
+          }else{
+            this._crtSer.showToastr_error(error?.message)
+          }
         }
       })
     }else{
@@ -124,11 +152,23 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit {
         .subscribe({
           next: (data:any)=>{
             this._crtSer.opcionesVrda=[]
-            this._crtSer.opcionesVrda=data?.veredas
+            this._crtSer.opcionesVrda=data?.veredas;
+            this._crtSer.opcionesVrda=this._crtSer.opcionesVrda?.sort((a:any,b:any)=> {
+              if (a.nombre > b.nombre) {
+                return 1;
+              }
+              if (a.nombre < b.nombre) {
+                return -1;
+              }
+              return 0;
+            })
           },
-          error: (err:any)=>{
-            console.log(err);
-            
+          error: (error:any)=>{
+            if(error?.error?.message){
+              this._crtSer.showToastr_error((error?.error.message).toString().toUpperCase())
+            }else{
+              this._crtSer.showToastr_error(error?.message)
+            }
           }
         })
       }else{
