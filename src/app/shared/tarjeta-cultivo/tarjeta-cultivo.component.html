@@ -1,4 +1,4 @@
-<div class="col scale-in-center shadow p-3 px-4 rounded-4 mb-3" style="position: relative!important;">
+<div class="col scale-in-t shadow p-3 px-4 rounded-4 mb-3" style="position: relative!important;">
     <div class="dropdown">
         <button mat-mini-fab class="btn btn-sm border-0 heartbeat " style="position: absolute ; z-index: 2; background-color: rgba(239, 239, 239, 0.257); right: 0px; top: 0px;" data-bs-toggle="dropdown" aria-expanded="false">
             <i  class=" fas fa-ellipsis" style="color: red;"></i>
@@ -10,18 +10,18 @@
     </div>
     <div class="card d-flex flex-wrap p-0 m-0" style="flex-direction: row; justify-content: space-around ;">
         <div class="p-1  col-12 col-md-3   d-flex justify-content-center" style="flex-direction: column;">
-        <h4 class="fw-semibold" style="color: #0500FF;">Cultivo 0001</h4>
-        <p  class="fw-normal">1 Hectarea </p>
+        <h4 class="fw-semibold" style="color: #0500FF;">Cultivo 00-{{items?.idCultivo}}</h4>
+        <p  class="fw-normal">{{items?.hectareas}} Hectareas </p>
         </div>
         <div class="p-1  col-12 col-md-3   d-flex justify-content-center" style="flex-direction: column;">
-        <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Departamento: </span> <span class="">ceweq wd vvevcse</span></p>
-        <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Municipio: </span> <span class="">ceweq wd vvevcse</span></p>
-        <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Vereda: </span> <span class="">ceweq wd vvevcse</span></p>
+        <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Departamento: </span> <span class="">{{items?.vereda?.municipio?.departamento?.nombre}}</span></p>
+        <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Municipio: </span> <span class="">{{items?.vereda?.municipio?.nombre}}</span></p>
+        <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Vereda: </span> <span class="">{{items?.vereda?.nombre}}</span></p>
         </div>
         <div class="p-1  col-12 col-md-6   d-flex justify-content-center" style="flex-direction: column;">
-        <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Fecha de siempre: </span> <span class="">01/12/2020</span></p>
+        <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Fecha de siempre: </span> <span class="">{{items?.fecha_siembre |date}}</span></p>
         <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Descripción: </span><br>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi incidunt ab velit!
+            {{items?.descripcion}}
         </p>
 
         </div>

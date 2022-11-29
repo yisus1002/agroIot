@@ -1,9 +1,10 @@
-import { Event } from '@angular/router';
+import { GastoService } from './../../services/gasto.service';
 import { ControlersService } from './../../services/controlers.service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AfterContentInit, Component, OnInit, Input, DoCheck  } from '@angular/core';
 import { UbicacionService } from 'src/app/services/ubicacion.service';
 import { finalize } from 'rxjs';
+import { CultivoService } from 'src/app/services/cultivo.service';
 // import { ValidatorService } from 'src/app/validators/validator.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
   @Input() namefor!:string;
   public formu!:    FormGroup;
   public gasto :any[]=[];
+  // public
   // public id_depto:any;
 
 
@@ -25,6 +27,8 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
     private form     : FormBuilder,
     public _crtSer   : ControlersService,
     public _sUbi     : UbicacionService,
+    private _sCul    : CultivoService,
+    private _sGas    : GastoService, 
 
   ) { 
     this.createForm(); 
@@ -39,7 +43,8 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
       })
       this.formu.get('municipio')?.disable()
       this.formu.get('vereda')?.disable()
-    },1000)
+    },1000);
+    this._crtSer.leerToken();
   }
   ngDoCheck(): void {
     
@@ -56,7 +61,7 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
 
 
   ngAfterContentInit(): void { 
-    console.log('hola');
+    // console.log('hola');
     
   }
 
@@ -198,8 +203,9 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
   public addGastos(){
     this.gastos.push(
       this.form.group({
-        valor       :["", [Validators.required],[]],
+        costo       :["", [Validators.required],[]],
         cantidad    :["", [Validators.required],[]],
+        tipo        :["", [Validators.required],[]],
         descripcion :["", [Validators.required],[]],
       })
     )
@@ -217,6 +223,7 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
 
 
   public enviar(){
+// this.postCultivo()
     console.log(this.formu.value);
     console.log(this.formu.valid);
     if(this.formu.invalid){
@@ -229,10 +236,8 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
       });
     }
     console.log(this.formu.value)
-    // this.formu.reset();
-    // this.opciones.unshift({
-      // cod: '', name: 'Selecione'
-    // })
+    this.postCultivo()
+
   }
   public loadForm(){
     this.formu.reset({
@@ -245,13 +250,13 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
       // gastos:
     });
 this.gasto=    [
-  { valor: "", cantidad: "",  descripcion: "" }, 
+  { costo: "", cantidad: "",  descripcion: "", tipo:""}, 
 ]
 // if(this.gasto){
 //   for (let gast of this.gasto){
 //     (<FormArray>this.formu.get('gastos')).push(
 //       new FormGroup({
-//         valor: new FormControl(gast.valor),
+//         costo: new FormControl(gast.costo),
 //         cantidad: new FormControl(gast.cantidad) ,
 //         descripcion: new FormControl(gast.descripcion),
 //       })
@@ -261,11 +266,61 @@ this.gasto=    [
 // console.log(this.gasto); 
   
   this.gasto.forEach?.((gast:any)=> this.gastos.push(this.form.group({
-        valor      : new FormControl(gast.valor, [Validators.required]),
+        costo      : new FormControl(gast.costo, [Validators.required]),
         cantidad   : new FormControl(gast.cantidad, [Validators.required]) ,
         descripcion: new FormControl(gast.descripcion, [Validators.required]),
+        tipo       : new FormControl(gast.tipo, [Validators.required]),
   })))
 
+  }
+
+  postCultivo(){
+
+    const cultivo={
+      hectareas: this.formu.value?.hectareas,
+      descripcion: this.formu.value?.descripcion,
+      fecha_siembre: this.formu.value?.fecha_siembre,
+    };
+
+    this._sCul.postCultivo(
+      this._crtSer.token,
+      this.formu.value?.vereda,
+      cultivo
+      ).pipe(finalize(()=>{
+      }))
+    .subscribe({
+      next: (data:any)=>{
+        // console.log(data);
+        this.postGasto(data?.idCultivo);
+        this._crtSer.showToastr_success('Cultivo creado')
+      },
+      error: (error:any)=>{
+        if(error?.error?.message){
+          this._crtSer.showToastr_error((error?.error.message).toString().toUpperCase())
+        }else{
+          this._crtSer.showToastr_error(error?.message)
+        }
+      }
+    })
+  }
+
+  postGasto(id_cultivo:any){
+    this._sGas.postGasto(this._crtSer.token, this.formu?.value?.gastos ,id_cultivo)
+    .pipe(finalize(()=>{
+      this._crtSer.getCultivo();
+    }))
+    .subscribe({
+      next: (data:any)=>{
+        console.log(data);
+      },
+      error: (error:any)=>{
+        if(error?.error?.message){
+          this._crtSer.showToastr_error((error?.error.message).toString().toUpperCase())
+        }else{
+          this._crtSer.showToastr_error(error?.message)
+        }
+      }
+    })
   }
 
 }

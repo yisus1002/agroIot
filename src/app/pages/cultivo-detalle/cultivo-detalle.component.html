@@ -39,23 +39,23 @@
     </div>
     <div class="container-fluid shadow rounded-4 mt-4 pb-1 " style="position: relative;">
         <div class="container-fluid d-flex justify-content-end py-2">
-            <button  mat-mini-fab class="btn"><mat-icon style="color: rgb(0, 213, 255);" data-bs-toggle="modal" data-bs-target="#formucultivo">edit</mat-icon></button>
-            <button  mat-mini-fab class="btn"><mat-icon style="color: red;">delete</mat-icon></button>
+            <button type="button"  mat-mini-fab class="btn"><mat-icon style="color: rgb(0, 213, 255);" data-bs-toggle="modal" data-bs-target="#formucultivo">edit</mat-icon></button>
+            <button type="button" (click)="deletCultivo(cultivo?.idCultivo)" mat-mini-fab class="btn"><mat-icon style="color: red;">delete</mat-icon></button>
         </div>
         <div class="col d-flex flex-wrap justify-content-center p-0 m-0" style="flex-direction: row; ">
             <div class="p-2  col-5 col-md-4   d-flex justify-content-center" style="flex-direction: column;">
                 <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Descripción: </span><br>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi incidunt ab velit!
+                    {{cultivo?.descripcion}}
                 </p>
-                <p  class="fw-normal">1 Hectarea </p>
+                <p  class="fw-normal">{{cultivo?.hectareas}} Hectareas </p>
             </div>
             <div class="p-2  col-5 col-md-4   d-flex justify-content-center" style="flex-direction: column;">
-                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Departamento: </span> <span class="">ceweq wd vvevcse</span></p>
-                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Municipio: </span> <span class="">ceweq wd vvevcse</span></p>
-                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Vereda: </span> <span class="">ceweq wd vvevcse</span></p>
+                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Departamento: </span> <span class="">{{cultivo?.vereda?.municipio?.departamento?.nombre}}</span></p>
+                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Municipio: </span> <span class="">{{cultivo?.vereda?.municipio?.nombre}}</span></p>
+                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Vereda: </span> <span class="">{{cultivo?.vereda?.nombre}}</span></p>
             </div>
             <div class="p-2  col-5 col-md-4   d-flex justify-content-center" style="flex-direction: column;">
-                <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Fecha de siempre: </span> <span class="">01/12/2020</span></p>
+                <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Fecha de siempre: </span> <span class="">{{cultivo?.fecha_siembre | date}}</span></p>
                 <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Gastos totales: </span> <span class="">3000</span></p>
                 </div>
         </div>
@@ -65,14 +65,16 @@
                 <tr>
                   <th scope="col" class="text-capitalize text-center">gastos</th>
                   <th scope="col" class="text-capitalize text-center">cantidad</th>
+                  <th scope="col" class="text-capitalize text-center">tipo</th>
                   <th scope="col" class="text-capitalize text-center">descripción</th> 
                 </tr>
               </thead>
               <tbody  class="table-group-divider">
-                <tr >
-                  <td align="center"  ><span>123456</span></td>
-                  <td align="center"  ><span>321</span></td>
-                  <td align="center"  ><span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo dolor error sit.</span></td>
+                <tr *ngFor="let item of gasto">
+                    <td align="center"  ><span>{{item?.costo}}</span></td>
+                  <td align="center"  ><span>{{item?.cantidad}}</span></td>
+                  <td align="center"  ><span>{{item?.tipo}}</span></td>
+                  <td align="center"  ><span>{{item?.descripcion}}</span></td>
                 </tr> 
               </tbody>
             </table>

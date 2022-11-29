@@ -58,7 +58,7 @@
               </select> 
               </div>
             </div>
-            <div class="p-1 col-12  col-md-10  d-flex justify-content-center" style="flex-direction: column; align-items: center;">
+            <div class="p-1 col-12  col-md-11  d-flex justify-content-center" style="flex-direction: column; align-items: center;">
               <p *ngIf="gastosV" class="m-1 fw-semibold alert">Este campo es obligatorio</p> 
               <div class="tablee ">
                 <table class="table shadow-sm table table-hover">
@@ -66,6 +66,7 @@
                     <tr>
                       <th scope="col" class="text-capitalize text-center">gastos</th>
                       <th scope="col" class="text-capitalize text-center">cantidad</th>
+                      <th scope="col" class="text-capitalize text-center">tipo</th>
                       <th scope="col" class="text-capitalize text-center">descripción</th>
                       <th scope="col" class="text-capitalize text-center">acciones</th>
                     </tr>
@@ -73,8 +74,13 @@
                   <tbody formArrayName="gastos" class="table-group-divider">
                     <tr *ngFor="let item of getCtrl('gastos', formu)?.controls;
                     index as indexFormChildPrice" [formGroupName]="indexFormChildPrice">
-                      <td align="center"  ><input formControlName="valor" placeholder="Valor" type="number" min="1" ></td>
+                      <td align="center"  ><input formControlName="costo" placeholder="costo" type="number" min="1" ></td>
                       <td align="center"  ><input formControlName="cantidad" placeholder="Cantidad" type="number" min="1" ></td>
+                      <td align="center"  >
+                        <select formControlName="tipo" id="tipo"  autocomplete="none">
+                          <option *ngFor="let item of _crtSer.opcionesGasto" [value]="item?.cod">{{item?.nombre}}</option>
+                        </select>   
+                      </td>
                       <td align="center"  ><input formControlName="descripcion" placeholder="Ingrese una descripción" type="text" ></td>
                       <td align="center">
                           <button type="button" (click)="deletGasto(indexFormChildPrice)" class="btn" mat-mini-fab ><mat-icon class="text-danger">delete</mat-icon></button>
@@ -94,7 +100,7 @@
         </div>
         <div class="container d-flex p-2" style="justify-content: center; align-items: center;">
           <button type="button" mat-button class="mx-1 btn " style="background-color: #FF3D00; color: #ffff;" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" mat-button class="mx-1 btn btn-primary" style="background-color: #00A3FF; color: #ffff;">Agregar</button>
+          <button type="submit" mat-button class="mx-1 btn btn-primary" style="background-color: #00A3FF; color: #ffff;" data-bs-dismiss="modal">Agregar</button>
         </div>
       </div>
     </form>

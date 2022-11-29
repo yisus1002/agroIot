@@ -6,7 +6,7 @@
       <mat-icon style="color:rgb(255, 255, 255) ; font-weight: bolder;">add</mat-icon>
     </button>
     <div class="container-fluid pt-2">
-      <app-tarjeta-cultivo></app-tarjeta-cultivo>
+      <app-tarjeta-cultivo [index]="_sCtr.cultivos[i]?.idCultivo" [items]="_sCtr.cultivos[i]" *ngFor="let item of _sCtr.cultivos; let i= index"></app-tarjeta-cultivo>
     </div>
 </div>
 <!-- <div class="container">
