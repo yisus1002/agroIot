@@ -1,3 +1,4 @@
+import { ParentService } from './parent/parent.service';
 import { ControlersService } from './controlers.service';
 import { Usuario } from './../models/usuario/usuario.model';
 import { Injectable } from '@angular/core'; 
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class UsuarioService {
   // public url_user:string= `${environment.API_URL}pequenos-productores/`
-  constructor(private _sCtrl: ControlersService,
+  constructor(private __Parent: ParentService,
     private http:HttpClient) {
    }
    postUser(usuario:Usuario):Observable<Usuario>{
@@ -18,14 +19,14 @@ export class UsuarioService {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': 'true', 
     })  
-    return (this.http.post<any>(`${this._sCtrl.API_URL}pequenos-productores/`,JSON.stringify(usuario),
+    return (this.http.post<any>(`${this.__Parent.API_URL}pequenos-productores/`,JSON.stringify(usuario),
     {headers: headers}));
    }
    getUserId(id:any, token:any):Observable<any>{
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}` 
     })
-    return (this.http.get<any>(`${this._sCtrl.API_URL}pequenos-productores/${id}`,{headers: headers}))
+    return (this.http.get<any>(`${this.__Parent.API_URL}pequenos-productores/${id}`,{headers: headers}))
    }
    putUser(id:any,token:any,user:Usuario):Observable<any>{
     const usuario={
@@ -39,6 +40,6 @@ export class UsuarioService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}` 
     })
-    return this.http.put<any>(`${this._sCtrl.API_URL}pequenos-productores/${id}`,usuario,{headers: headers})
+    return this.http.put<any>(`${this.__Parent.API_URL}pequenos-productores/${id}`,usuario,{headers: headers})
    }
 }

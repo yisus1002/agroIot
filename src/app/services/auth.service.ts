@@ -3,21 +3,23 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';  
+import { ParentService } from './parent/parent.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public token:any;
   public idUser:any;
   constructor(private http:HttpClient,
               private router: Router,
-              private _sCtrl: ControlersService) {
-    this.leerToken(); 
+              private _sCtrl: ControlersService,
+              private __Parent: ParentService,
+              ) {
+    this._sCtrl.leerToken(); 
    }
 
   postLogin(correo:any, contraseña:any):Observable<any>{ 
-    return (this.http.post<any>(`${this._sCtrl.API_URL}auth/login`,{correo,contraseña}))
+    return (this.http.post<any>(`${this.__Parent.API_URL}auth/login`,{correo,contraseña}))
   }
 
 
@@ -42,24 +44,17 @@ export class AuthService {
 
 
   saveToken(token:string, id:number){
-    this.token =token;
+    this._sCtrl.token =token;
     localStorage.setItem('token', token);
     localStorage.setItem('id', id.toString());
     let hoy = new Date();
     hoy.setSeconds(86400);
     localStorage.setItem('expira', hoy.getTime().toString())
   }
-  leerToken(){
-    if(localStorage.getItem('token')){
-      this.token= localStorage.getItem('token');
-    }else{
-      this.token='';
-    }
-    return this.token;
-  }
+
   isAutentificado():boolean{
     // const token = localStorage.getItem('token');
-    if(this.token.length<2){
+    if(this._sCtrl.token.length<2){
       return false;
     }
     const expira = Number(localStorage.getItem('expira')); 
