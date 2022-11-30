@@ -7,21 +7,11 @@
     </button>
     <div class="container-fluid pt-2">
       <app-tarjeta-cultivo [index]="_sCtr.cultivos[i]?.idCultivo" [items]="_sCtr.cultivos[i]" *ngFor="let item of _sCtr.cultivos; let i= index"></app-tarjeta-cultivo>
-    </div>
-</div>
-<!-- <div class="container">
-    <div class="row row-cols-3 row-cols-md-4 row-cols-lg-5 g-1">
-      <div class="col" >
-        <div class="card p-0">
-          <div class="card-body p-1">
-            <h5 class="card-title text-center">""dfvdf""</h5>
-            <p class="card-text">Episode <small>efdxerg</small></p>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">fvdxrge</small>
-          </div>
+      <div *ngIf="_sCtr.cultivos.length===0 && mostrar" class="col shadow scale-in-center rounded-4">
+        <div class="card border-0">
+          <h3 class="text-center p-0 m-0">No tines cultivos, agregalos!</h3>
         </div>
       </div>
     </div>
-  </div> -->
+</div>
 <app-formulariocultivo namefor="Agregar"></app-formulariocultivo>

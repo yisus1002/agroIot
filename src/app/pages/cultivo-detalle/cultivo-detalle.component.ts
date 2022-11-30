@@ -4,6 +4,7 @@ import { ControlersService } from './../../services/controlers.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { pipe, finalize } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cultivo-detalle',
@@ -54,23 +55,42 @@ export class CultivoDetalleComponent implements OnInit {
   }
 
   deletCultivo(id:any){
-    this._sCul.deletCultivo(this._sCtr.token, id)
-    .pipe(finalize(()=>{
-      this.router.navigate(['/'])
-    }))
-    .subscribe({
-      next: (data:any)=>{
-        console.log(data);
-        this._sCtr.showToastr_success('Cultivo eliminado')
-      },
-      error: (error:any)=>{
-        if(error?.error?.message){
-          this._sCtr.showToastr_error((error?.error.message).toString().toUpperCase())
-        }else{
-          this._sCtr.showToastr_error(error?.message)
-        }
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Borrar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._sCul.deletCultivo(this._sCtr.token, id)
+        .pipe(finalize(()=>{
+          this.router.navigate(['/'])
+        }))
+        .subscribe({
+          next: (data:any)=>{
+            console.log(data);
+            this._sCtr.showToastr_success('Cultivo eliminado')
+          },
+          error: (error:any)=>{
+            if(error?.error?.message){
+              this._sCtr.showToastr_error((error?.error.message).toString().toUpperCase())
+            }else{
+              this._sCtr.showToastr_error(error?.message)
+            }
+          }
+        })
+        // Swal.fire(
+        //   'Borrado!',
+        //   'Your file has been deleted.',
+        //   'success'
+        // )
       }
     })
+
+
   }
 
   getGastoCultivoId(){

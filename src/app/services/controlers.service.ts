@@ -3,6 +3,7 @@ import { Injectable, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs';
 import { FormArray, FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root',
 })
@@ -127,23 +128,34 @@ openModal(){
   }
   // ----------------------------------------------------------------------
   deletCUltivo(id:any){
-    this._sCul.deletCultivo(this.token, id)
-    .pipe(finalize(()=>{
-      this.getCultivo();
-    }))
-    .subscribe({
-      next: (data:any)=>{
-        console.log(data);
-        this.showToastr_success('Cultivo eliminado')
-      },
-      error: (error:any)=>{
-        if(error?.error?.message){
-          this.showToastr_error((error?.error.message).toString().toUpperCase())
-        }else{
-          this.showToastr_error(error?.message)
-        }
-      }
-    })
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Borrar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._sCul.deletCultivo(this.token, id)
+        .pipe(finalize(()=>{
+          this.getCultivo();
+        }))
+        .subscribe({
+          next: (data:any)=>{
+            console.log(data);
+            this.showToastr_success('Cultivo eliminado')
+          },
+          error: (error:any)=>{
+            if(error?.error?.message){
+              this.showToastr_error((error?.error.message).toString().toUpperCase())
+            }else{
+              this.showToastr_error(error?.message)
+            }
+          }
+        })
+      }})
   }
   // ----------------------------------------------------------------------
   // toast ---------------------------

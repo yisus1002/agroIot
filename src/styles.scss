@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
 html, body { height: 100%; }
 body { margin: 0;font-family: 'Nunito Sans', sans-serif; }
@@ -255,5 +258,3 @@ body { margin: 0;font-family: 'Nunito Sans', sans-serif; }
   }
 }
 
-/* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';

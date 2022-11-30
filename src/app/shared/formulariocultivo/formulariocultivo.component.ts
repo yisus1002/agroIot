@@ -5,6 +5,7 @@ import { AfterContentInit, Component, OnInit, Input, DoCheck  } from '@angular/c
 import { UbicacionService } from 'src/app/services/ubicacion.service';
 import { finalize } from 'rxjs';
 import { CultivoService } from 'src/app/services/cultivo.service';
+import Swal from 'sweetalert2';
 // import { ValidatorService } from 'src/app/validators/validator.service';
 
 @Component({
@@ -212,8 +213,24 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
     return  (<FormArray>form.get(key)); 
   }
   public deletGasto(id:any){
-    this._crtSer.gastos.removeAt(id);
-    console.log(id);
+    if(this.namefor==='Agregar'){ 
+      this._crtSer.gastos.removeAt(id);
+      console.log(id);
+    }else if(this.namefor==='Editar'){
+      Swal.fire({
+        title: '¿Está seguro?',
+        text: "¡No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Borrar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          
+        }})
+    }
+
     
   }
 
