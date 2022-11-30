@@ -17,7 +17,7 @@ export class CultivoDetalleComponent implements OnInit {
   public ph:number=50;
   public cultivo: any;
   public gasto:any[]=[];
-  constructor(private _sCtr: ControlersService,
+  constructor(public _sCtr: ControlersService,
               private _sCul: CultivoService,
               private _sGas: GastoService,
               private router:Router,

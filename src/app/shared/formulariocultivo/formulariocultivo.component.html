@@ -3,14 +3,14 @@
   <!-- modal fade -->
   <div class="modal fade" id="formucultivo" tabindex="-1" aria-labelledby="formucultivoLabel" aria-hidden="true">
     <form class="modal-dialog modal-xl"
-    [formGroup]="formu"
+    [formGroup]="_crtSer.formu"
     (ngSubmit)="enviar()"
     autocomplete="none"
     >
       <div class="modal-content">
         <div class="container d-flex p-2" style="justify-content: space-between;">
           <h1 class="h1 m-1 text-center fs-4 fw-semibold" style="color: #8C5708;" id="formucultivoLabel">{{namefor}} un cultivo</h1>
-          <button type="button"  mat-icon-button  data-bs-dismiss="modal" aria-label="Close">
+          <button type="button" (click)="loadForm()" mat-icon-button  data-bs-dismiss="modal" aria-label="Close">
             <mat-icon class="text-danger">close</mat-icon>
           </button>
         </div>
@@ -18,17 +18,17 @@
         <div class="modal-body   p-2">
           <div class="cantainer-fluid d-flex flex-wrap justify-content-around">
             <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
-               <p *ngIf="descripcion" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
+               <p *ngIf="_crtSer.descripcion" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
                <label class="h6 m-0 text-capitalize" for="descrip">Cultivo</label>
                 <textarea formControlName="descripcion" class="" name="" id="descrip" placeholder="Ingrese una descripción" ></textarea>
             </div>
             <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
-              <p *ngIf="hectareas" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
+              <p *ngIf="_crtSer.hectareas" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
                 <label class="h6 m-0" for="tmcultivo">Tamaño del cultivo </label>
                 <input formControlName="hectareas" type="number" min="1"  id="tmcultivo" placeholder="Tamaño en hectareas"> 
             </div>
             <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
-              <p *ngIf="fecha_siembre" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
+              <p *ngIf="_crtSer.fecha_siembre" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
               <label class="h6 m-0" for="fsiembre">Fecha de siembre</label>
               <input formControlName="fecha_siembre" type="date" id="fsiembre" placeholder="Fec">
                
@@ -37,21 +37,21 @@
           <div class="cantainer-fluid d-flex flex-wrap justify-content-around  ">
             <div class="container-fluid p-1 col-12 d-flex flex-wrap" style="justify-content: space-evenly;">
               <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
-                <p *ngIf="departamento" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
+                <p *ngIf="_crtSer.departamento" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
                 <label class="h6 m-0" for="departamento">Departamento</label>
                 <select name="" id="departamento" formControlName="departamento" (change)="getMunicipio()"  autocomplete="none"> 
                   <option *ngFor="let item of _crtSer.opcionesDpto" [value]="item?.idDepartamento">{{item?.nombre}}</option>
                 </select>
               </div>
               <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
-                <p *ngIf="municipio" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
+                <p *ngIf="_crtSer.municipio" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
               <label class="h6 m-0" for="municipio">Municipio</label>
               <select formControlName="municipio" id="municipio" (change)="getVereda()"  autocomplete="none">
                 <option *ngFor="let item of _crtSer.opcionesMuni" [value]="item?.idMunicipio">{{item?.nombre}}</option>
               </select>
               </div>
               <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
-                <p *ngIf="vereda" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
+                <p *ngIf="_crtSer.vereda" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
               <label class="h6 m-0" for="vereda">Vereda</label>
               <select formControlName="vereda" id="municipio"  autocomplete="none">
                 <option *ngFor="let item of _crtSer.opcionesVrda" [value]="item?.idVereda">{{item?.nombre}}</option>
@@ -59,7 +59,7 @@
               </div>
             </div>
             <div class="p-1 col-12  col-md-11  d-flex justify-content-center" style="flex-direction: column; align-items: center;">
-              <p *ngIf="gastosV" class="m-1 fw-semibold alert">Este campo es obligatorio</p> 
+              <p *ngIf="_crtSer.gastosV" class="m-1 fw-semibold alert">Este campo es obligatorio</p> 
               <div class="tablee ">
                 <table class="table shadow-sm table table-hover">
                   <thead>
@@ -72,7 +72,7 @@
                     </tr>
                   </thead>
                   <tbody formArrayName="gastos" class="table-group-divider">
-                    <tr *ngFor="let item of getCtrl('gastos', formu)?.controls;
+                    <tr *ngFor="let item of getCtrl('gastos', _crtSer.formu)?.controls;
                     index as indexFormChildPrice" [formGroupName]="indexFormChildPrice">
                       <td align="center"  ><input formControlName="costo" placeholder="costo" type="number" min="1" ></td>
                       <td align="center"  ><input formControlName="cantidad" placeholder="Cantidad" type="number" min="1" ></td>
@@ -98,9 +98,10 @@
             </div>
           </div>
         </div>
+        
         <div class="container d-flex p-2" style="justify-content: center; align-items: center;">
-          <button type="button" mat-button class="mx-1 btn " style="background-color: #FF3D00; color: #ffff;" data-bs-dismiss="modal">Cancelar</button>
-          <button type="submit" mat-button class="mx-1 btn btn-primary" style="background-color: #00A3FF; color: #ffff;" data-bs-dismiss="modal">Agregar</button>
+          <button type="button" (click)="loadForm()" mat-button class="mx-1 btn " style="background-color: #FF3D00; color: #ffff;" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" mat-button class="mx-1 btn btn-primary" style="background-color: #00A3FF; color: #ffff;" >{{namefor}}</button>
         </div>
       </div>
     </form>

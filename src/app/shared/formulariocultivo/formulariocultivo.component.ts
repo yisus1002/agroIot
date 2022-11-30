@@ -15,7 +15,6 @@ import { CultivoService } from 'src/app/services/cultivo.service';
 export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoCheck {
   
   @Input() namefor!:string;
-  public formu!:    FormGroup;
   public gasto :any[]=[];
   // public
   // public id_depto:any;
@@ -41,8 +40,14 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
       this._crtSer.opcionesVrda.unshift({
         idVereda:'', nombre: 'Seleccione una vereda'
       })
-      this.formu.get('municipio')?.disable()
-      this.formu.get('vereda')?.disable()
+      if(this.namefor==='Agregar'){
+        this._crtSer.formu.get('municipio')?.disable()
+        this._crtSer.formu.get('vereda')?.disable()
+      }else if(this.namefor==='Editar'){
+        this._crtSer.formu.get('municipio')?.enable()
+        this._crtSer.formu.get('vereda')?.enable()
+
+      }
     },1000);
     this._crtSer.leerToken();
   }
@@ -50,14 +55,6 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
     
   }
 
-  get gastos(){   return this.formu.get('gastos') as FormArray};
-  get gastosV(){   return this.formu.get('gastos')?.invalid && this.formu.get('gastos')?.touched};
-  get hectareas(){ return this.formu.get('hectareas')?.invalid && this.formu.get('hectareas')?.touched};
-  get descripcion(){ return this.formu.get('descripcion')?.invalid && this.formu.get('descripcion')?.touched};
-  get fecha_siembre(){ return this.formu.get('fecha_siembre')?.invalid && this.formu.get('fecha_siembre')?.touched};
-  get departamento(){ return this.formu.get('departamento')?.invalid && this.formu.get('departamento')?.touched};
-  get municipio(){ return this.formu.get('municipio')?.invalid && this.formu.get('municipio')?.touched};
-  get vereda(){ return this.formu.get('vereda')?.invalid && this.formu.get('vereda')?.touched};
 
 
   ngAfterContentInit(): void { 
@@ -100,14 +97,14 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
   }
 
   getMunicipio(){ 
-    let id= this.formu.get('departamento')?.value;
+    let id= this._crtSer.formu.get('departamento')?.value;
     if(id>0){
       this._sUbi.getDepartamentoId(id)
       .pipe(finalize(()=>{
         this._crtSer.opcionesMuni.unshift({
           idMunicipio:'', nombre: 'Seleccione un municipio'
         }); 
-      this.formu.get('municipio')?.enable()
+      this._crtSer.formu.get('municipio')?.enable()
       }))
       .subscribe({
         next: (data:any)=>{
@@ -139,20 +136,20 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
       this._crtSer.opcionesVrda.unshift({
         idVereda:'', nombre: 'Seleccione una vereda'
       })
-      this.formu.get('municipio')?.disable()
-      this.formu.get('vereda')?.disable()
+      this._crtSer.formu.get('municipio')?.disable()
+      this._crtSer.formu.get('vereda')?.disable()
     }
   }
 
   getVereda(){
-      let id =this.formu.get('municipio')?.value;
+      let id =this._crtSer.formu.get('municipio')?.value;
       if(id>0){
         this._sUbi.getMunicipioId(id)
         .pipe(finalize(()=>{
           this._crtSer.opcionesVrda.unshift({
             idVereda:'', nombre: 'Seleccione una vereda'
           })
-          this.formu.get('vereda')?.enable()
+          this._crtSer.formu.get('vereda')?.enable()
         }))
         .subscribe({
           next: (data:any)=>{
@@ -181,7 +178,7 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
         this._crtSer.opcionesVrda.unshift({
           idVereda:'', nombre: 'Seleccione una vereda'
         })
-        this.formu.get('vereda')?.disable()
+        this._crtSer.formu.get('vereda')?.disable()
       }
   }
 
@@ -189,7 +186,7 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
 
 
   public createForm(){
-    this.formu=this.form.group({ 
+    this._crtSer.formu=this.form.group({ 
       hectareas    :["", [Validators.required],[]],
       descripcion  :["", [Validators.required],[]],
       fecha_siembre:["", [Validators.required],[]],
@@ -201,7 +198,7 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
   }
 
   public addGastos(){
-    this.gastos.push(
+    this._crtSer.gastos.push(
       this.form.group({
         costo       :["", [Validators.required],[]],
         cantidad    :["", [Validators.required],[]],
@@ -215,19 +212,16 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
     return  (<FormArray>form.get(key)); 
   }
   public deletGasto(id:any){
-    this.gastos.removeAt(id);
+    this._crtSer.gastos.removeAt(id);
     console.log(id);
     
   }
- 
-
 
   public enviar(){
-// this.postCultivo()
-    console.log(this.formu.value);
-    console.log(this.formu.valid);
-    if(this.formu.invalid){
-      return Object.values(this.formu.controls).forEach(controls=>{
+    console.log(this._crtSer.formu.value);
+    console.log(this._crtSer.formu.valid);
+    if(this._crtSer.formu.invalid){
+      return Object.values(this._crtSer.formu.controls).forEach(controls=>{
         if(controls instanceof FormGroup){
           Object.values(controls.controls).forEach(controls=>controls.markAllAsTouched())
         }else{
@@ -235,12 +229,16 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
         }
       });
     }
-    console.log(this.formu.value)
-    this.postCultivo()
+    console.log(this._crtSer.formu.value)
+    if(this.namefor==='Agregar'){
+      this.postCultivo()
+    }else if(this.namefor==='Editar'){
+      console.log(this._crtSer.formu.value);
+    }
 
   }
   public loadForm(){
-    this.formu.reset({
+    this._crtSer.formu.reset({
       hectareas :"",
       descripcion :"",
       fecha_siembre :"",
@@ -249,27 +247,14 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
       vereda :"",
       // gastos:
     });
-this.gasto=    [
-  { costo: "", cantidad: "",  descripcion: "", tipo:""}, 
-]
-// if(this.gasto){
-//   for (let gast of this.gasto){
-//     (<FormArray>this.formu.get('gastos')).push(
-//       new FormGroup({
-//         costo: new FormControl(gast.costo),
-//         cantidad: new FormControl(gast.cantidad) ,
-//         descripcion: new FormControl(gast.descripcion),
-//       })
-//     );
-//   }
-// }
-// console.log(this.gasto); 
-  
-  this.gasto.forEach?.((gast:any)=> this.gastos.push(this.form.group({
-        costo      : new FormControl(gast.costo, [Validators.required]),
-        cantidad   : new FormControl(gast.cantidad, [Validators.required]) ,
-        descripcion: new FormControl(gast.descripcion, [Validators.required]),
-        tipo       : new FormControl(gast.tipo, [Validators.required]),
+this.gasto=    [];
+  this._crtSer.gastos.clear()
+
+  this.gasto.forEach?.((gast:any)=> this._crtSer.gastos.push(this.form.group({
+        costo      : new FormControl(gast?.costo, [Validators.required]),
+        cantidad   : new FormControl(gast?.cantidad, [Validators.required]) ,
+        descripcion: new FormControl(gast?.descripcion, [Validators.required]),
+        tipo       : new FormControl(gast?.tipo, [Validators.required]),
   })))
 
   }
@@ -277,14 +262,14 @@ this.gasto=    [
   postCultivo(){
 
     const cultivo={
-      hectareas: this.formu.value?.hectareas,
-      descripcion: this.formu.value?.descripcion,
-      fecha_siembre: this.formu.value?.fecha_siembre,
+      hectareas: this._crtSer.formu.value?.hectareas,
+      descripcion: this._crtSer.formu.value?.descripcion,
+      fecha_siembre: this._crtSer.formu.value?.fecha_siembre+' 13:09:56.624241',
     };
 
     this._sCul.postCultivo(
       this._crtSer.token,
-      this.formu.value?.vereda,
+      this._crtSer.formu.value?.vereda,
       cultivo
       ).pipe(finalize(()=>{
       }))
@@ -305,9 +290,10 @@ this.gasto=    [
   }
 
   postGasto(id_cultivo:any){
-    this._sGas.postGasto(this._crtSer.token, this.formu?.value?.gastos ,id_cultivo)
+    this._sGas.postGasto(this._crtSer.token, this._crtSer.formu?.value?.gastos ,id_cultivo)
     .pipe(finalize(()=>{
       this._crtSer.getCultivo();
+      this.loadForm();
     }))
     .subscribe({
       next: (data:any)=>{

@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { FormulariocultivoComponent } from './shared/formulariocultivo/formulariocultivo.component';
 import { CultivoDetalleComponent } from './pages/cultivo-detalle/cultivo-detalle.component';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -38,13 +39,16 @@ import { CultivoDetalleComponent } from './pages/cultivo-detalle/cultivo-detalle
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgbModule,
+    // NgbModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 2500,
       progressBar: true,
 
-    })
+    }),
+    NgbModule
   ], 
-  providers: [],
+  providers: [ NgbActiveModal,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
