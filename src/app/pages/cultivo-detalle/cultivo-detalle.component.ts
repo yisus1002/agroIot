@@ -16,7 +16,7 @@ export class CultivoDetalleComponent implements OnInit {
   public tem:number=35;
   public hum:number=90;
   public ph:number=7;
-  public cultivo: any;
+  // public cultivo: any;
   public gasto:any[]=[];
   constructor(public _sCtr: ControlersService,
               private _sCul: CultivoService,
@@ -41,8 +41,7 @@ export class CultivoDetalleComponent implements OnInit {
     }))
     .subscribe({
       next: (data:any)=>{
-        console.log(data);
-        this.cultivo=data;
+        this._sCtr.cultivo=data;
       },
       error: (error:any)=>{
         if(error?.error?.message){
@@ -82,11 +81,6 @@ export class CultivoDetalleComponent implements OnInit {
             }
           }
         })
-        // Swal.fire(
-        //   'Borrado!',
-        //   'Your file has been deleted.',
-        //   'success'
-        // )
       }
     })
 
@@ -94,9 +88,12 @@ export class CultivoDetalleComponent implements OnInit {
   }
 
   getGastoCultivoId(){
-    this._sGas.getGastoCultivoId(this._sCtr.token, this.cultivo?.idCultivo)
+    this._sGas.getGastoCultivoId(this._sCtr.token, this._sCtr.cultivo?.idCultivo)
     .pipe(finalize(()=>{
 
+      this._sCtr.loadFormEdit(this._sCtr.cultivo,this.gasto)
+      this._sCtr.getMunicipio()
+      this._sCtr.getVereda();
     }))
     .subscribe({
       next: (data:any)=>{

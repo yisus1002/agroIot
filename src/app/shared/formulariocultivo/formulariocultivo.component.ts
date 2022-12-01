@@ -6,6 +6,7 @@ import { UbicacionService } from 'src/app/services/ubicacion.service';
 import { finalize } from 'rxjs';
 import { CultivoService } from 'src/app/services/cultivo.service';
 import Swal from 'sweetalert2';
+import { gasto } from 'src/app/models/usuario/gasto.model';
 // import { ValidatorService } from 'src/app/validators/validator.service';
 
 @Component({
@@ -58,134 +59,14 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
 
 
 
-  ngAfterContentInit(): void { 
-    // console.log('hola');
+  ngAfterContentInit(): void {  
     
   }
 
   ngOnInit(): void {
-    this.getDepartamento()
+    this._crtSer.getDepartamento();
   }
-
-  public getDepartamento(){
-    this._sUbi.getDepartamento().
-    pipe(finalize(()=>{
-      this._crtSer.opcionesDpto.unshift({
-        idDepartamento:'', nombre: 'Seleccione un departamento'
-      })
-    }))
-    .subscribe({
-      next: (data:any)=>{ 
-        this._crtSer.opcionesDpto=data.sort((a:any,b:any)=> {
-          if (a.nombre > b.nombre) {
-            return 1;
-          }
-          if (a.nombre < b.nombre) {
-            return -1;
-          }
-          return 0;
-        })
-        
-      },
-      error: (error:any)=>{
-        if(error?.error?.message){
-          this._crtSer.showToastr_error((error?.error.message).toString().toUpperCase())
-        }else{
-          this._crtSer.showToastr_error(error?.message)
-        }
-      }
-    })
-  }
-
-  getMunicipio(){ 
-    let id= this._crtSer.formu.get('departamento')?.value;
-    if(id>0){
-      this._sUbi.getDepartamentoId(id)
-      .pipe(finalize(()=>{
-        this._crtSer.opcionesMuni.unshift({
-          idMunicipio:'', nombre: 'Seleccione un municipio'
-        }); 
-      this._crtSer.formu.get('municipio')?.enable()
-      }))
-      .subscribe({
-        next: (data:any)=>{
-          this._crtSer.opcionesMuni=[]
-          this._crtSer.opcionesMuni=data?.municipios.sort((a:any,b:any)=> {
-            if (a.nombre > b.nombre) {
-              return 1;
-            }
-            if (a.nombre < b.nombre) {
-              return -1;
-            }
-            return 0;
-          })
-        },
-        error: (error:any)=>{
-          if(error?.error?.message){
-            this._crtSer.showToastr_error((error?.error.message).toString().toUpperCase())
-          }else{
-            this._crtSer.showToastr_error(error?.message)
-          }
-        }
-      })
-    }else{
-      this._crtSer.opcionesMuni=[]
-      this._crtSer.opcionesVrda=[];
-      this._crtSer.opcionesMuni.unshift({
-        idMunicipio:'', nombre: 'Seleccione un municipio'
-      });
-      this._crtSer.opcionesVrda.unshift({
-        idVereda:'', nombre: 'Seleccione una vereda'
-      })
-      this._crtSer.formu.get('municipio')?.disable()
-      this._crtSer.formu.get('vereda')?.disable()
-    }
-  }
-
-  getVereda(){
-      let id =this._crtSer.formu.get('municipio')?.value;
-      if(id>0){
-        this._sUbi.getMunicipioId(id)
-        .pipe(finalize(()=>{
-          this._crtSer.opcionesVrda.unshift({
-            idVereda:'', nombre: 'Seleccione una vereda'
-          })
-          this._crtSer.formu.get('vereda')?.enable()
-        }))
-        .subscribe({
-          next: (data:any)=>{
-            this._crtSer.opcionesVrda=[]
-            this._crtSer.opcionesVrda=data?.veredas;
-            this._crtSer.opcionesVrda=this._crtSer.opcionesVrda?.sort((a:any,b:any)=> {
-              if (a.nombre > b.nombre) {
-                return 1;
-              }
-              if (a.nombre < b.nombre) {
-                return -1;
-              }
-              return 0;
-            })
-          },
-          error: (error:any)=>{
-            if(error?.error?.message){
-              this._crtSer.showToastr_error((error?.error.message).toString().toUpperCase())
-            }else{
-              this._crtSer.showToastr_error(error?.message)
-            }
-          }
-        })
-      }else{
-        this._crtSer.opcionesVrda=[];
-        this._crtSer.opcionesVrda.unshift({
-          idVereda:'', nombre: 'Seleccione una vereda'
-        })
-        this._crtSer.formu.get('vereda')?.disable()
-      }
-  }
-
   
-
-
   public createForm(){
     this._crtSer.formu=this.form.group({ 
       hectareas    :["", [Validators.required],[]],
@@ -202,6 +83,7 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
     this._crtSer.gastos.push(
       this.form.group({
         costo       :["", [Validators.required],[]],
+        idGasto     :["", []],
         cantidad    :["", [Validators.required],[]],
         tipo        :["", [Validators.required],[]],
         descripcion :["", [Validators.required],[]],
@@ -251,6 +133,7 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
       this.postCultivo()
     }else if(this.namefor==='Editar'){
       console.log(this._crtSer.formu.value);
+      this.putcultivo()
     }
 
   }
@@ -267,9 +150,10 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
 this.gasto=    [];
   this._crtSer.gastos.clear()
 
-  this.gasto.forEach?.((gast:any)=> this._crtSer.gastos.push(this.form.group({
+  this.gasto.forEach?.((gast:any)=> this._crtSer.gastos.push(this.form.group({        
+        idGasto    :new FormControl(gast?.idGasto),
         costo      : new FormControl(gast?.costo, [Validators.required]),
-        cantidad   : new FormControl(gast?.cantidad, [Validators.required]) ,
+        cantidad   : new FormControl(gast?.cantidad, [Validators.required]),
         descripcion: new FormControl(gast?.descripcion, [Validators.required]),
         tipo       : new FormControl(gast?.tipo, [Validators.required]),
   })))
@@ -277,7 +161,6 @@ this.gasto=    [];
   }
 
   postCultivo(){
-
     const cultivo={
       hectareas: this._crtSer.formu.value?.hectareas,
       descripcion: this._crtSer.formu.value?.descripcion,
@@ -292,7 +175,6 @@ this.gasto=    [];
       }))
     .subscribe({
       next: (data:any)=>{
-        // console.log(data);
         this.postGasto(data?.idCultivo);
         this._crtSer.showToastr_success('Cultivo creado')
       },
@@ -307,7 +189,15 @@ this.gasto=    [];
   }
 
   postGasto(id_cultivo:any){
-    this._sGas.postGasto(this._crtSer.token, this._crtSer.formu?.value?.gastos ,id_cultivo)
+    let gast:gasto[]= this._crtSer.formu?.value?.gastos;
+    const gastos=gast.map(({costo,cantidad,descripcion,tipo})=>({
+      'costo':costo,
+      'cantidad':cantidad,
+      'descripcion':descripcion,
+      'tipo':tipo,
+    }))
+    
+    this._sGas.postGasto(this._crtSer.token, gastos ,id_cultivo)
     .pipe(finalize(()=>{
       this._crtSer.getCultivo();
       this.loadForm();
@@ -324,6 +214,80 @@ this.gasto=    [];
         }
       }
     })
+  }
+
+  putcultivo(){
+    const cultivo={
+      hectareas: this._crtSer.formu.value?.hectareas,
+      descripcion: this._crtSer.formu.value?.descripcion,
+      fecha_siembre: this._crtSer.formu.value?.fecha_siembre+' 13:09:56.624241',
+      vereda:{
+        idVereda: this._crtSer.formu.value?.vereda
+      }
+    };
+    this._sCul.putCultivo(this._crtSer.token,
+      this._crtSer.cultivo?.idCultivo,
+      cultivo
+      )
+      .pipe(finalize(()=>{
+        this._crtSer.getCultivoId();
+        console.log(this._crtSer.formu.value?.gastos);
+        
+      }))
+      .subscribe({
+        next: (data:any)=>{
+          console.log(data);
+        this._crtSer.showToastr_success('Cultivo editado')
+        },
+        error: (error:any)=>{
+          if(error?.error?.message){
+            this._crtSer.showToastr_error((error?.error.message).toString().toUpperCase())
+          }else{
+            this._crtSer.showToastr_error(error?.message)
+          }
+        }
+      })
+  }
+
+  putGasto(id_gasto:any, gasto:any){
+    console.log(id_gasto);
+    this._sGas.puttGasto(this._crtSer.token, gasto, id_gasto)
+    .pipe(finalize(()=>{
+
+    }))
+    .subscribe({
+      next: (data:any)=>{
+
+      },
+      error: (error:any)=>{
+        if(error?.error?.message){
+          this._crtSer.showToastr_error((error?.error.message).toString().toUpperCase())
+        }else{
+          this._crtSer.showToastr_error(error?.message)
+        }
+      }
+    })
+    
+  }
+  deleteGastoId(id_gasto:any){
+    console.log(id_gasto);
+    this._sGas.deletGasto(this._crtSer.token,id_gasto)
+    .pipe(finalize(()=>{
+
+    }))
+    .subscribe({
+      next: (data:any)=>{
+
+      },
+      error: (error:any)=>{
+        if(error?.error?.message){
+          this._crtSer.showToastr_error((error?.error.message).toString().toUpperCase())
+        }else{
+          this._crtSer.showToastr_error(error?.message)
+        }
+      }
+    })
+    
   }
 
 }

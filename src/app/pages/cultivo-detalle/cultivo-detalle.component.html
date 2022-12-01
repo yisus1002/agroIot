@@ -1,6 +1,6 @@
 <div class="container-fluid mt-3">
     <div class="container">
-        <h1 class="text-start mb-0">Cultivo 00-{{cultivo?.idCultivo}}</h1>
+        <h1 class="text-start mb-0">Cultivo 00-{{_sCtr.cultivo?.idCultivo}}</h1>
     </div>
     <div class="d-flex flex-wrap " style="justify-content: center; position: relative;">
         <div class="col-6 col-sm  col-md-3  d-flex  justify-content-center " style="align-items:center ; flex-direction: column; position: relative;">
@@ -39,46 +39,48 @@
     </div>
     <div class="container-fluid shadow rounded-4 mt-4 pb-1 " style="position: relative;">
         <div class="container-fluid d-flex justify-content-end py-2">
-            <button type="button" (click)="_sCtr.loadFormEdit(cultivo,gasto)" mat-mini-fab class="btn"><mat-icon style="color: rgb(0, 213, 255);" data-bs-toggle="modal" data-bs-target="#formucultivo">edit</mat-icon></button>
-            <button type="button" (click)="deletCultivo(cultivo?.idCultivo)" mat-mini-fab class="btn"><mat-icon style="color: red;">delete</mat-icon></button>
+            <button type="button" (click)="_sCtr.loadFormEdit(_sCtr.cultivo,gasto)" mat-mini-fab class="btn"><mat-icon style="color: rgb(0, 213, 255);" data-bs-toggle="modal" data-bs-target="#formucultivo">edit</mat-icon></button>
+            <button type="button" (click)="deletCultivo(_sCtr.cultivo?.idCultivo)" mat-mini-fab class="btn"><mat-icon style="color: red;">delete</mat-icon></button>
         </div>
         <div class="col d-flex flex-wrap justify-content-center p-0 m-0" style="flex-direction: row; ">
             <div class="p-2  col-5 col-md-4   d-flex justify-content-center" style="flex-direction: column;">
                 <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Descripción: </span><br>
-                    {{cultivo?.descripcion}}
+                    {{_sCtr.cultivo?.descripcion}}
                 </p>
-                <p  class="fw-normal">{{cultivo?.hectareas}} Hectareas </p>
+                <p  class="fw-normal">{{_sCtr.cultivo?.hectareas}} Hectareas </p>
             </div>
             <div class="p-2  col-5 col-md-4   d-flex justify-content-center" style="flex-direction: column;">
-                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Departamento: </span> <span class="">{{cultivo?.vereda?.municipio?.departamento?.nombre}}</span></p>
-                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Municipio: </span> <span class="">{{cultivo?.vereda?.municipio?.nombre}}</span></p>
-                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Vereda: </span> <span class="">{{cultivo?.vereda?.nombre}}</span></p>
+                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Departamento: </span> <span class="">{{_sCtr.cultivo?.vereda?.municipio?.departamento?.nombre}}</span></p>
+                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Municipio: </span> <span class="">{{_sCtr.cultivo?.vereda?.municipio?.nombre}}</span></p>
+                <p class="text-start"><span class="text-capitalize fw-semibold" style="color:#8E815F;">Vereda: </span> <span class="">{{_sCtr.cultivo?.vereda?.nombre}}</span></p>
             </div>
             <div class="p-2  col-5 col-md-4   d-flex justify-content-center" style="flex-direction: column;">
-                <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Fecha de siempre: </span> <span class="">{{cultivo?.fecha_siembre | date}}</span></p>
+                <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Fecha de siempre: </span> <span class="">{{_sCtr.cultivo?.fecha_siembre | date}}</span></p>
                 <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Gastos totales: </span> <span class="">3000</span></p>
                 </div>
         </div>
-        <div class="tablee col-10 col-sm-9 col-md-8 " style="margin: 0 auto;">
-            <table class="table mb-4 shadow-sm table table-hover">
-              <thead style="background-color: #999999!important;">
-                <tr>
-                  <th scope="col" class="text-capitalize text-center">gastos</th>
-                  <th scope="col" class="text-capitalize text-center">cantidad</th>
-                  <th scope="col" class="text-capitalize text-center">tipo</th>
-                  <th scope="col" class="text-capitalize text-center">descripción</th> 
-                </tr>
-              </thead>
-              <tbody  class="table-group-divider">
-                <tr *ngFor="let item of gasto">
-                    <td align="center"  ><span>{{item?.costo}}</span></td>
-                  <td align="center"  ><span>{{item?.cantidad}}</span></td>
-                  <td align="center"  ><span>{{item?.tipo}}</span></td>
-                  <td align="center"  ><span>{{item?.descripcion}}</span></td>
-                </tr> 
-              </tbody>
-            </table>
-          </div>
+        <div class="table-responsive">
+            <div class="tablee  col-12 col-sm-9 col-md-8 " style="margin: 0 auto;">
+                <table class="table mb-4 shadow-sm table table-hover">
+                  <thead style="background-color: #999999!important;">
+                    <tr>
+                      <th scope="col" class="text-capitalize text-center">gastos</th>
+                      <th scope="col" class="text-capitalize text-center">cantidad</th>
+                      <th scope="col" class="text-capitalize text-center">tipo</th>
+                      <th scope="col" class="text-capitalize text-center">descripción</th> 
+                    </tr>
+                  </thead>
+                  <tbody  class="table-group-divider">
+                    <tr *ngFor="let item of gasto">
+                        <td align="center"  ><span>{{item?.costo}}</span></td>
+                      <td align="center"  ><span>{{item?.cantidad}}</span></td>
+                      <td align="center"  ><span>{{item?.tipo}}</span></td>
+                      <td align="center"  ><span>{{item?.descripcion}}</span></td>
+                    </tr> 
+                  </tbody>
+                </table>
+              </div>
+        </div>
     </div>
 </div>
 

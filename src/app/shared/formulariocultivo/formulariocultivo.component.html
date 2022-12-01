@@ -39,14 +39,14 @@
               <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
                 <p *ngIf="_crtSer.departamento" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
                 <label class="h6 m-0" for="departamento">Departamento</label>
-                <select name="" id="departamento" formControlName="departamento" (change)="getMunicipio()"  autocomplete="none"> 
+                <select name="" id="departamento" formControlName="departamento" (change)="_crtSer.getMunicipio()"  autocomplete="none"> 
                   <option *ngFor="let item of _crtSer.opcionesDpto" [value]="item?.idDepartamento">{{item?.nombre}}</option>
                 </select>
               </div>
               <div class="p-1 col-6 col-sm-5 col-md-3 d-flex justify-content-center" style="flex-direction: column; align-items: center;">
                 <p *ngIf="_crtSer.municipio" class="m-1 fw-semibold alert">Este campo es obligatorio</p>
               <label class="h6 m-0" for="municipio">Municipio</label>
-              <select formControlName="municipio" id="municipio" (change)="getVereda()"  autocomplete="none">
+              <select formControlName="municipio" id="municipio" (change)="_crtSer.getVereda()"  autocomplete="none">
                 <option *ngFor="let item of _crtSer.opcionesMuni" [value]="item?.idMunicipio">{{item?.nombre}}</option>
               </select>
               </div>

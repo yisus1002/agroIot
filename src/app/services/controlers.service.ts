@@ -1,3 +1,4 @@
+import { UbicacionService } from './ubicacion.service';
 import { CultivoService } from './cultivo.service';
 import { Injectable, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
@@ -27,12 +28,10 @@ export class ControlersService {
   public formu!:    FormGroup;
   public gasto:any[]=[];
   
-
-  // @ViewChild('appDialog') appDialog: DialogComponent;
-  
   constructor(private toastr: ToastrService,
               public _sCul: CultivoService,
               private form: FormBuilder,
+              public _sUbi: UbicacionService,
               ) {
     this.ordenarGasto();
     setTimeout(() => {
@@ -56,7 +55,7 @@ public loadFormEdit(cultivo:any, gasto:any){
   this.formu.reset({
     hectareas :cultivo?.hectareas,
     descripcion :cultivo?.descripcion,
-    fecha_siembre :cultivo?.fecha_siembre.slice(0,9),
+    fecha_siembre :cultivo?.fecha_siembre.slice(0,10),
     departamento :cultivo?.vereda?.municipio?.departamento?.idDepartamento,
     municipio :cultivo?.vereda?.municipio?.idMunicipio,
     vereda :cultivo?.vereda?.idVereda,
@@ -66,21 +65,136 @@ this.gasto= gasto;
 this.gastos.clear()
 if(this.gasto.length>0){
   this.gasto.forEach?.((gast:any)=> this.gastos.push(this.form.group({
+    idGasto    :new FormControl(gast?.idGasto),
     costo      : new FormControl(gast?.costo, [Validators.required]),
     cantidad   : new FormControl(gast?.cantidad, [Validators.required]) ,
     descripcion: new FormControl(gast?.descripcion, [Validators.required]),
     tipo       : new FormControl(gast?.tipo, [Validators.required]),
 })))
 }
+console.log(this.formu.value);
 
 
 }
 
 // ---------------------------------------------------------------------
-openModal(){
 
+public getDepartamento(){
+  this._sUbi.getDepartamento().
+  pipe(finalize(()=>{
+    this.opcionesDpto.unshift({
+      idDepartamento:'', nombre: 'Seleccione un departamento'
+    })
+  }))
+  .subscribe({
+    next: (data:any)=>{ 
+      this.opcionesDpto=data.sort((a:any,b:any)=> {
+        if (a.nombre > b.nombre) {
+          return 1;
+        }
+        if (a.nombre < b.nombre) {
+          return -1;
+        }
+        return 0;
+      })
+      
+    },
+    error: (error:any)=>{
+      if(error?.error?.message){
+        this.showToastr_error((error?.error.message).toString().toUpperCase())
+      }else{
+        this.showToastr_error(error?.message)
+      }
+    }
+  })
 }
 // ---------------------------------------------------------------------
+
+getMunicipio(){ 
+  let id= this.formu.get('departamento')?.value;
+  if(id>0){
+    this._sUbi.getDepartamentoId(id)
+    .pipe(finalize(()=>{
+      this.opcionesMuni.unshift({
+        idMunicipio:'', nombre: 'Seleccione un municipio'
+      }); 
+    this.formu.get('municipio')?.enable()
+    }))
+    .subscribe({
+      next: (data:any)=>{
+        this.opcionesMuni=[]
+        this.opcionesMuni=data?.municipios.sort((a:any,b:any)=> {
+          if (a.nombre > b.nombre) {
+            return 1;
+          }
+          if (a.nombre < b.nombre) {
+            return -1;
+          }
+          return 0;
+        })
+      },
+      error: (error:any)=>{
+        if(error?.error?.message){
+          this.showToastr_error((error?.error.message).toString().toUpperCase())
+        }else{
+          this.showToastr_error(error?.message)
+        }
+      }
+    })
+  }else{
+    this.opcionesMuni=[]
+    this.opcionesVrda=[];
+    this.opcionesMuni.unshift({
+      idMunicipio:'', nombre: 'Seleccione un municipio'
+    });
+    this.opcionesVrda.unshift({
+      idVereda:'', nombre: 'Seleccione una vereda'
+    })
+    this.formu.get('municipio')?.disable()
+    this.formu.get('vereda')?.disable()
+  }
+}
+// ---------------------------------------------------------------------
+getVereda(){
+  let id =this.formu.get('municipio')?.value;
+  if(id>0){
+    this._sUbi.getMunicipioId(id)
+    .pipe(finalize(()=>{
+      this.opcionesVrda.unshift({
+        idVereda:'', nombre: 'Seleccione una vereda'
+      })
+      this.formu.get('vereda')?.enable()
+    }))
+    .subscribe({
+      next: (data:any)=>{
+        this.opcionesVrda=[]
+        this.opcionesVrda=data?.veredas;
+        this.opcionesVrda=this.opcionesVrda?.sort((a:any,b:any)=> {
+          if (a.nombre > b.nombre) {
+            return 1;
+          }
+          if (a.nombre < b.nombre) {
+            return -1;
+          }
+          return 0;
+        })
+      },
+      error: (error:any)=>{
+        if(error?.error?.message){
+          this.showToastr_error((error?.error.message).toString().toUpperCase())
+        }else{
+          this.showToastr_error(error?.message)
+        }
+      }
+    })
+  }else{
+    this.opcionesVrda=[];
+    this.opcionesVrda.unshift({
+      idVereda:'', nombre: 'Seleccione una vereda'
+    })
+    this.formu.get('vereda')?.disable()
+  }
+}
 // ---------------------------------------------------------------------
 // ---------------------------------------------------------------------
 // ---------------------------------------------------------------------
@@ -126,6 +240,28 @@ openModal(){
       }
     })
   }
+  // ----------------------------------------------------------------------
+  getCultivoId(){
+    this._sCul.getCultivoId(this.token, this.cultivo?.idCultivo)
+    .pipe(finalize(()=>{
+      
+    }))
+    .subscribe({
+      next: (data:any)=>{
+        this.cultivo=data;
+        console.log(this.cultivo);
+        
+      },
+      error: (error:any)=>{
+        if(error?.error?.message){
+          this.showToastr_error((error?.error.message).toString().toUpperCase())
+        }else{
+          this.showToastr_error(error?.message)
+        }
+      }
+    })
+  }
+
   // ----------------------------------------------------------------------
   deletCUltivo(id:any){
     Swal.fire({
