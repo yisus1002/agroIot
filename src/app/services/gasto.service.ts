@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { ControlersService } from './controlers.service';
+import { Injectable } from '@angular/core'; 
 import { ParentService } from './parent/parent.service';
 import { gasto } from '../models/usuario/gasto.model';
 
@@ -11,7 +10,6 @@ import { gasto } from '../models/usuario/gasto.model';
 export class GastoService {
 
   constructor(
-    private _sCtrl  : ControlersService,
     private http    : HttpClient,
     private __Parent: ParentService,
 

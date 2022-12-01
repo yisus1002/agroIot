@@ -36,13 +36,14 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
     setTimeout(()=>{
       // Pruebas
       this.loadForm();
-      this._crtSer.opcionesMuni.unshift({
-        idMunicipio:'', nombre: 'Seleccione un municipio'
-      })
-      this._crtSer.opcionesVrda.unshift({
-        idVereda:'', nombre: 'Seleccione una vereda'
-      })
+
       if(this.namefor==='Agregar'){
+        this._crtSer.opcionesMuni.unshift({
+          idMunicipio:'', nombre: 'Seleccione un municipio'
+        })
+        this._crtSer.opcionesVrda.unshift({
+          idVereda:'', nombre: 'Seleccione una vereda'
+        })
         this._crtSer.formu.get('municipio')?.disable()
         this._crtSer.formu.get('vereda')?.disable()
       }else if(this.namefor==='Editar'){
@@ -94,7 +95,9 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
   public getCtrl(key: string, form: FormGroup) { 
     return  (<FormArray>form.get(key)); 
   }
-  public deletGasto(id:any){
+  public deletGasto(id:any, Gasto:any){
+    console.log(Gasto?.value.idGasto);
+    
     if(this.namefor==='Agregar'){ 
       this._crtSer.gastos.removeAt(id);
       console.log(id);
@@ -109,7 +112,8 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
         confirmButtonText: 'Borrar'
       }).then((result) => {
         if (result.isConfirmed) {
-          
+          this.deleteGastoId(Gasto?.value.idGasto);
+          this._crtSer.gastos.removeAt(id);
         }})
     }
 
@@ -273,7 +277,7 @@ this.gasto=    [];
     console.log(id_gasto);
     this._sGas.deletGasto(this._crtSer.token,id_gasto)
     .pipe(finalize(()=>{
-
+      this._crtSer.getGastoCultivoIds()
     }))
     .subscribe({
       next: (data:any)=>{

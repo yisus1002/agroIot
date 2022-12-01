@@ -17,10 +17,9 @@ export class CultivoDetalleComponent implements OnInit {
   public hum:number=90;
   public ph:number=7;
   // public cultivo: any;
-  public gasto:any[]=[];
+  // public gasto:any[]=[];
   constructor(public _sCtr: ControlersService,
               private _sCul: CultivoService,
-              private _sGas: GastoService,
               private router:Router,
               private activateRoute:ActivatedRoute,
               
@@ -37,7 +36,7 @@ export class CultivoDetalleComponent implements OnInit {
   getCultivoDetalle(id_cultivo:any){
     this._sCul.getCultivoId(this._sCtr.token, id_cultivo)
     .pipe(finalize(()=>{
-      this.getGastoCultivoId();
+      this._sCtr.getGastoCultivoId();
     }))
     .subscribe({
       next: (data:any)=>{
@@ -87,27 +86,6 @@ export class CultivoDetalleComponent implements OnInit {
 
   }
 
-  getGastoCultivoId(){
-    this._sGas.getGastoCultivoId(this._sCtr.token, this._sCtr.cultivo?.idCultivo)
-    .pipe(finalize(()=>{
 
-      this._sCtr.loadFormEdit(this._sCtr.cultivo,this.gasto)
-      this._sCtr.getMunicipio()
-      this._sCtr.getVereda();
-    }))
-    .subscribe({
-      next: (data:any)=>{
-        this.gasto=data;
-        console.log(data);
-      },
-      error: (error:any)=>{
-        if(error?.error?.message){
-          this._sCtr.showToastr_error((error?.error.message).toString().toUpperCase())
-        }else{
-          this._sCtr.showToastr_error(error?.message)
-        }
-      }
-    })
-  }
 
 }

@@ -1,3 +1,5 @@
+import { gasto } from './../models/usuario/gasto.model';
+import { GastoService } from './gasto.service';
 import { UbicacionService } from './ubicacion.service';
 import { CultivoService } from './cultivo.service';
 import { Injectable, ViewChild } from '@angular/core';
@@ -27,11 +29,15 @@ export class ControlersService {
   public cultivo:any;
   public formu!:    FormGroup;
   public gasto:any[]=[];
+  public gast:any[]=[];
+  public gasTotal:any;
+
   
   constructor(private toastr: ToastrService,
               public _sCul: CultivoService,
               private form: FormBuilder,
               public _sUbi: UbicacionService,
+              public _sGas: GastoService,
               ) {
     this.ordenarGasto();
     setTimeout(() => {
@@ -72,7 +78,7 @@ if(this.gasto.length>0){
     tipo       : new FormControl(gast?.tipo, [Validators.required]),
 })))
 }
-console.log(this.formu.value);
+// console.log(this.formu.value);
 
 
 }
@@ -110,7 +116,7 @@ public getDepartamento(){
 }
 // ---------------------------------------------------------------------
 
-getMunicipio(){ 
+  getMunicipio(){ 
   let id= this.formu.get('departamento')?.value;
   if(id>0){
     this._sUbi.getDepartamentoId(id)
@@ -153,9 +159,9 @@ getMunicipio(){
     this.formu.get('municipio')?.disable()
     this.formu.get('vereda')?.disable()
   }
-}
+  }
 // ---------------------------------------------------------------------
-getVereda(){
+  getVereda(){
   let id =this.formu.get('municipio')?.value;
   if(id>0){
     this._sUbi.getMunicipioId(id)
@@ -194,7 +200,7 @@ getVereda(){
     })
     this.formu.get('vereda')?.disable()
   }
-}
+  }
 // ---------------------------------------------------------------------
 // ---------------------------------------------------------------------
 // ---------------------------------------------------------------------
@@ -292,6 +298,49 @@ getVereda(){
           }
         })
       }})
+  }
+  // ----------------------------------------------------------------------
+  getGastoCultivoId(){
+    this._sGas.getGastoCultivoId(this.token, this.cultivo?.idCultivo)
+    .pipe(finalize(()=>{
+      let gastototal:gasto[]=this.gast;
+      // const gas= 
+      this.loadFormEdit(this.cultivo,this.gast)
+      this.getMunicipio()
+      this.getVereda();
+    }))
+    .subscribe({
+      next: (data:any)=>{
+        this.gast=data;
+        console.log(data);
+      },
+      error: (error:any)=>{
+        if(error?.error?.message){
+          this.showToastr_error((error?.error.message).toString().toUpperCase())
+        }else{
+          this.showToastr_error(error?.message)
+        }
+      }
+    })
+  }
+  getGastoCultivoIds(){
+    this._sGas.getGastoCultivoId(this.token, this.cultivo?.idCultivo)
+    .pipe(finalize(()=>{
+
+    }))
+    .subscribe({
+      next: (data:any)=>{
+        this.gast=data;
+        console.log(data);
+      },
+      error: (error:any)=>{
+        if(error?.error?.message){
+          this.showToastr_error((error?.error.message).toString().toUpperCase())
+        }else{
+          this.showToastr_error(error?.message)
+        }
+      }
+    })
   }
   // ----------------------------------------------------------------------
   // toast ---------------------------

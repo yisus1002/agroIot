@@ -39,7 +39,7 @@
     </div>
     <div class="container-fluid shadow rounded-4 mt-4 pb-1 " style="position: relative;">
         <div class="container-fluid d-flex justify-content-end py-2">
-            <button type="button" (click)="_sCtr.loadFormEdit(_sCtr.cultivo,gasto)" mat-mini-fab class="btn"><mat-icon style="color: rgb(0, 213, 255);" data-bs-toggle="modal" data-bs-target="#formucultivo">edit</mat-icon></button>
+            <button type="button" (click)="_sCtr.loadFormEdit(_sCtr.cultivo,_sCtr.gast)" mat-mini-fab class="btn"><mat-icon style="color: rgb(0, 213, 255);" data-bs-toggle="modal" data-bs-target="#formucultivo">edit</mat-icon></button>
             <button type="button" (click)="deletCultivo(_sCtr.cultivo?.idCultivo)" mat-mini-fab class="btn"><mat-icon style="color: red;">delete</mat-icon></button>
         </div>
         <div class="col d-flex flex-wrap justify-content-center p-0 m-0" style="flex-direction: row; ">
@@ -56,7 +56,7 @@
             </div>
             <div class="p-2  col-5 col-md-4   d-flex justify-content-center" style="flex-direction: column;">
                 <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Fecha de siempre: </span> <span class="">{{_sCtr.cultivo?.fecha_siembre | date}}</span></p>
-                <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Gastos totales: </span> <span class="">3000</span></p>
+                <p class="text-start"><span class=" fw-semibold" style="color:#8E815F;">Gastos totales: </span> <span class="">{{_sCtr.gasTotal}}</span></p>
                 </div>
         </div>
         <div class="table-responsive">
@@ -71,7 +71,7 @@
                     </tr>
                   </thead>
                   <tbody  class="table-group-divider">
-                    <tr *ngFor="let item of gasto">
+                    <tr *ngFor="let item of _sCtr.gast">
                         <td align="center"  ><span>{{item?.costo}}</span></td>
                       <td align="center"  ><span>{{item?.cantidad}}</span></td>
                       <td align="center"  ><span>{{item?.tipo}}</span></td>
