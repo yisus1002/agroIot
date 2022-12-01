@@ -93,7 +93,11 @@
                             [class.invalid]="pass2NoValid"
                             />
                      </div>
-                     <button type="submit">Sign Up</button>                
+                     <button type="submit" [disabled]="_sAuth.habilitar">
+                        <span *ngIf="_sAuth.habilitar===false">Sign Up </span>
+                        <i *ngIf="_sAuth.habilitar" class="fa-2x fa-solid fa-spinner fa-spin-pulse fa-spin-reverse"></i>
+                    
+                    </button>                
                 </div>
             </form>
         </div>
@@ -128,7 +132,10 @@
                                formControlName="password" />
                     </div>
                     <a href="#">Forgot your password?</a>
-                    <button type="submit">Log In</button>
+                    <button type="submit" [disabled]="_sAuth.habilitar">
+                        <span *ngIf="_sAuth.habilitar===false">Log In </span>
+                        <i *ngIf="_sAuth.habilitar" class="fa-2x fa-solid fa-spinner fa-spin-pulse fa-spin-reverse"></i>
+                    </button>
                 </div>
             </form>
         </div>

@@ -13,9 +13,9 @@ import Swal from 'sweetalert2';
 })
 export class CultivoDetalleComponent implements OnInit {
 
-  public tem:number=65;
-  public hum:number=60;
-  public ph:number=50;
+  public tem:number=35;
+  public hum:number=90;
+  public ph:number=7;
   public cultivo: any;
   public gasto:any[]=[];
   constructor(public _sCtr: ControlersService,

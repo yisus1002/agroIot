@@ -2,7 +2,7 @@ import { ControlersService } from './controlers.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';  
+import { finalize, Observable } from 'rxjs';  
 import { ParentService } from './parent/parent.service';
 
 @Injectable({
@@ -10,6 +10,7 @@ import { ParentService } from './parent/parent.service';
 })
 export class AuthService {
   public idUser:any;
+  public habilitar:boolean=false;
   constructor(private http:HttpClient,
               private router: Router,
               private _sCtrl: ControlersService,
@@ -24,8 +25,12 @@ export class AuthService {
 
 
   getToken(correo:any, contraseña:any){
+    
+    this.habilitar=true;
     this.postLogin(correo, contraseña)
-    // .pipe()
+    .pipe(finalize(()=>{
+      this.habilitar=false;
+    }))
     .subscribe({
       next: (data:any)=>{
         this.idUser=data?.idPequeñoProductor;

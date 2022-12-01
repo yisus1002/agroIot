@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     // private router   : Router,
     private validate : ValidatorService,
     private _sUser   : UsuarioService,
-    private _sAuth   : AuthService,
+    public _sAuth   : AuthService,
     private _sCtrl   : ControlersService,
 
     ) {
@@ -144,8 +144,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
   } 
 
   createUser(user:Usuario){
+
+    this._sAuth.habilitar=true;
     this._sUser.postUser(user)
-    .pipe(  finalize(()=>{ })  )
+    .pipe(  finalize(()=>{
+      this._sAuth.habilitar=false;
+     })  )
     .subscribe({
       next: (data:any)=>{
         this._sAuth.getToken(user.correo, user.contraseña); 

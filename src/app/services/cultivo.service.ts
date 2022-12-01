@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ControlersService } from './controlers.service';
 import { Observable } from 'rxjs';
 import { ParentService } from './parent/parent.service';
 
