@@ -114,6 +114,13 @@
               <div class="col">
                 <p style="text-align: center; color: rgb(7, 17, 163);">Ultima actualización el {{user?.updatedAt | date:'short'}}</p>
               </div>
+              <div class="col my-4 d-flex" style="justify-content: center;">
+                <button type="button"
+                mat-button color="warn" 
+                class="border my-1"
+                (click)="deletCuenta()"
+                >Eliminar cuenta</button>
+              </div>
              </div>
       </div>
   </form>

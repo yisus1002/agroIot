@@ -3,6 +3,7 @@ import { ControlersService } from './../../services/controlers.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,  Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-perfil',
@@ -137,4 +138,40 @@ export class PerfilComponent implements OnInit {
     this.formu.removeControl('password')
     this.loadForm()
   }
+  deletCuenta(){
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Borrar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._sUser.deleltUserId(this.user?.idPequeñoProductor, this._sCtrl.token)
+        .pipe(finalize(()=>{
+          this._sCtrl.leerToken()
+          localStorage.clear()
+          location.reload()
+        }))
+        .subscribe({
+          next: (data:any)=>{
+            this._sCtrl.showToastr_success('Cuenta eliminada')
+          } ,
+          error:(error:any)=>{
+            if(error?.error?.message){
+              this._sCtrl.showToastr_error(`${error?.error?.message}`)
+            }else{
+              this._sCtrl.showToastr_error(error?.message)
+            }
+          }
+        })
+      }
+    })
+  
+  }
+
+
+
 }

@@ -9,7 +9,6 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UsuarioService {
-  // public url_user:string= `${environment.API_URL}pequenos-productores/`
   constructor(private __Parent: ParentService,
     private http:HttpClient) {
    }
@@ -27,6 +26,12 @@ export class UsuarioService {
       'Authorization': `Bearer ${token}` 
     })
     return (this.http.get<any>(`${this.__Parent.API_URL}pequenos-productores/${id}`,{headers: headers}))
+   }
+   deleltUserId(id:any, token:any):Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}` 
+    })
+    return (this.http.delete<any>(`${this.__Parent.API_URL}pequenos-productores/${id}`,{headers: headers}))
    }
    putUser(id:any,token:any,user:Usuario):Observable<any>{
     const usuario={
