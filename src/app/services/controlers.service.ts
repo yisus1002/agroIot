@@ -30,7 +30,7 @@ export class ControlersService {
   public formu!:    FormGroup;
   public gasto:any[]=[];
   public gast:any[]=[];
-  public gasTotal:any;
+  public gasTotal:number=0;
 
   
   constructor(private toastr: ToastrService,
@@ -45,7 +45,6 @@ export class ControlersService {
     }, 800);
   };
 // ---------------------------------------------------------------------
-
 get gastos(){   return this.formu.get('gastos') as FormArray};
 get gastosV(){   return this.formu.get('gastos')?.invalid && this.formu.get('gastos')?.touched};
 get hectareas(){ return this.formu.get('hectareas')?.invalid && this.formu.get('hectareas')?.touched};
@@ -77,10 +76,9 @@ if(this.gasto.length>0){
     descripcion: new FormControl(gast?.descripcion, [Validators.required]),
     tipo       : new FormControl(gast?.tipo, [Validators.required]),
 })))
+
+this.formu.get('gastos')?.disable() 
 }
-// console.log(this.formu.value);
-
-
 }
 
 // ---------------------------------------------------------------------
@@ -255,8 +253,6 @@ public getDepartamento(){
     .subscribe({
       next: (data:any)=>{
         this.cultivo=data;
-        console.log(this.cultivo);
-        
       },
       error: (error:any)=>{
         if(error?.error?.message){
@@ -286,7 +282,6 @@ public getDepartamento(){
         }))
         .subscribe({
           next: (data:any)=>{
-            console.log(data);
             this.showToastr_success('Cultivo eliminado')
           },
           error: (error:any)=>{
@@ -303,8 +298,16 @@ public getDepartamento(){
   getGastoCultivoId(){
     this._sGas.getGastoCultivoId(this.token, this.cultivo?.idCultivo)
     .pipe(finalize(()=>{
+      this.gasTotal=0;
       let gastototal:gasto[]=this.gast;
-      // const gas= 
+      const gas= gastototal.map(({costo,cantidad})=>({
+        "total": costo*cantidad
+      }))
+      
+      gas.forEach((ele:any)=> {
+        this.gasTotal=this.gasTotal+(ele?.total)
+      });
+      
       this.loadFormEdit(this.cultivo,this.gast)
       this.getMunicipio()
       this.getVereda();
@@ -312,7 +315,6 @@ public getDepartamento(){
     .subscribe({
       next: (data:any)=>{
         this.gast=data;
-        console.log(data);
       },
       error: (error:any)=>{
         if(error?.error?.message){
@@ -326,12 +328,20 @@ public getDepartamento(){
   getGastoCultivoIds(){
     this._sGas.getGastoCultivoId(this.token, this.cultivo?.idCultivo)
     .pipe(finalize(()=>{
-
+      this.gasTotal=0;
+      let gastototal:gasto[]=this.gast;
+      const gas= gastototal.map(({costo,cantidad})=>({
+        "total": costo*cantidad
+      }))
+      
+      gas.forEach((ele:any)=> {
+        this.gasTotal=this.gasTotal+(ele?.total)
+      });
+      this.loadFormEdit(this.cultivo,this.gast)
     }))
     .subscribe({
       next: (data:any)=>{
         this.gast=data;
-        console.log(data);
       },
       error: (error:any)=>{
         if(error?.error?.message){
@@ -342,8 +352,7 @@ public getDepartamento(){
       }
     })
   }
-  // ----------------------------------------------------------------------
-  // toast ---------------------------
+// ----------------------------------------------------------------------
   showToastr_success(title: string) {
     this.toastr.success(`${title}`);
   }

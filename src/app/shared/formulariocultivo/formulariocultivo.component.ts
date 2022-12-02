@@ -96,11 +96,8 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
     return  (<FormArray>form.get(key)); 
   }
   public deletGasto(id:any, Gasto:any){
-    console.log(Gasto?.value.idGasto);
-    
     if(this.namefor==='Agregar'){ 
       this._crtSer.gastos.removeAt(id);
-      console.log(id);
     }else if(this.namefor==='Editar'){
       Swal.fire({
         title: '¿Está seguro?',
@@ -121,7 +118,6 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
   }
 
   public enviar(){
-    console.log(this._crtSer.formu.value);
     console.log(this._crtSer.formu.valid);
     if(this._crtSer.formu.invalid){
       return Object.values(this._crtSer.formu.controls).forEach(controls=>{
@@ -132,11 +128,9 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
         }
       });
     }
-    console.log(this._crtSer.formu.value)
     if(this.namefor==='Agregar'){
       this.postCultivo()
     }else if(this.namefor==='Editar'){
-      console.log(this._crtSer.formu.value);
       this.putcultivo()
     }
 
@@ -149,7 +143,6 @@ export class FormulariocultivoComponent implements OnInit, AfterContentInit, DoC
       departamento :"",
       municipio :"",
       vereda :"",
-      // gastos:
     });
 this.gasto=    [];
   this._crtSer.gastos.clear()
@@ -204,11 +197,14 @@ this.gasto=    [];
     this._sGas.postGasto(this._crtSer.token, gastos ,id_cultivo)
     .pipe(finalize(()=>{
       this._crtSer.getCultivo();
-      this.loadForm();
+      if(this.namefor==='Agregar'){
+        this.loadForm();
+      }else if(this.namefor==='Editar'){
+        this._crtSer.getGastoCultivoIds()
+      }
     }))
     .subscribe({
       next: (data:any)=>{
-        console.log(data);
       },
       error: (error:any)=>{
         if(error?.error?.message){
@@ -235,12 +231,12 @@ this.gasto=    [];
       )
       .pipe(finalize(()=>{
         this._crtSer.getCultivoId();
-        console.log(this._crtSer.formu.value?.gastos);
-        
       }))
       .subscribe({
         next: (data:any)=>{
-          console.log(data);
+          if(this._crtSer.formu.value?.gastos){
+            this.postGasto(data?.idCultivo)
+          }
         this._crtSer.showToastr_success('Cultivo editado')
         },
         error: (error:any)=>{
@@ -253,28 +249,8 @@ this.gasto=    [];
       })
   }
 
-  putGasto(id_gasto:any, gasto:any){
-    console.log(id_gasto);
-    this._sGas.puttGasto(this._crtSer.token, gasto, id_gasto)
-    .pipe(finalize(()=>{
 
-    }))
-    .subscribe({
-      next: (data:any)=>{
-
-      },
-      error: (error:any)=>{
-        if(error?.error?.message){
-          this._crtSer.showToastr_error((error?.error.message).toString().toUpperCase())
-        }else{
-          this._crtSer.showToastr_error(error?.message)
-        }
-      }
-    })
-    
-  }
   deleteGastoId(id_gasto:any){
-    console.log(id_gasto);
     this._sGas.deletGasto(this._crtSer.token,id_gasto)
     .pipe(finalize(()=>{
       this._crtSer.getGastoCultivoIds()
