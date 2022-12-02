@@ -1,10 +1,13 @@
-import { GastoService } from './../../services/gasto.service';
 import { CultivoService } from './../../services/cultivo.service';
 import { ControlersService } from './../../services/controlers.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { pipe, finalize } from 'rxjs';
 import Swal from 'sweetalert2';
+// import * as jsPDF from 'jspdf';
+// import * as html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-cultivo-detalle',
@@ -16,9 +19,12 @@ export class CultivoDetalleComponent implements OnInit {
   public tem:number=35;
   public hum:number=90;
   public ph:number=7;
+  
+  @ViewChild('pdf') cont?: ElementRef;
   // public cultivo: any;
   // public gasto:any[]=[];
   constructor(public _sCtr: ControlersService,
+              private render2  : Renderer2,
               private _sCul: CultivoService,
               private router:Router,
               private activateRoute:ActivatedRoute,
@@ -82,9 +88,21 @@ export class CultivoDetalleComponent implements OnInit {
           }
         })
       }
+    }) 
+  }
+  downloadPDF(){
+    const pdf = this.cont?.nativeElement; 
+    const doc = new jsPDF();
+    html2canvas(pdf).then((canvas)=>{
+      console.log(canvas);
+      var imgHeigth = canvas.height * 208/ canvas.width;
+      var imgData =canvas.toDataURL('img/png');
+      doc.addImage(imgData, 0,0,208,imgHeigth)
+      doc.save('Reporte.pdf')
+      
     })
-
-
+    console.log(pdf);
+    
   }
 
 
