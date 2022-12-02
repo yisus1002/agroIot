@@ -271,6 +271,7 @@ public getDepartamento(){
       text: "¡No podrás revertir esto!",
       icon: 'warning',
       showCancelButton: true,
+      cancelButtonText:'Cancelar',
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Borrar'
