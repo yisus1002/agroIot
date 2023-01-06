@@ -32,7 +32,7 @@ export class ControlersService {
   public gast:any[]=[];
   public gasTotal:number=0;
 
-  
+
   constructor(private toastr: ToastrService,
               public _sCul: CultivoService,
               private form: FormBuilder,
@@ -77,7 +77,7 @@ if(this.gasto.length>0){
     tipo       : new FormControl(gast?.tipo, [Validators.required]),
 })))
 
-this.formu.get('gastos')?.disable() 
+this.formu.get('gastos')?.disable()
 }
 }
 
@@ -91,7 +91,7 @@ public getDepartamento(){
     })
   }))
   .subscribe({
-    next: (data:any)=>{ 
+    next: (data:any)=>{
       this.opcionesDpto=data.sort((a:any,b:any)=> {
         if (a.nombre > b.nombre) {
           return 1;
@@ -101,7 +101,7 @@ public getDepartamento(){
         }
         return 0;
       })
-      
+
     },
     error: (error:any)=>{
       if(error?.error?.message){
@@ -114,14 +114,14 @@ public getDepartamento(){
 }
 // ---------------------------------------------------------------------
 
-  getMunicipio(){ 
+  getMunicipio(){
   let id= this.formu.get('departamento')?.value;
   if(id>0){
     this._sUbi.getDepartamentoId(id)
     .pipe(finalize(()=>{
       this.opcionesMuni.unshift({
         idMunicipio:'', nombre: 'Seleccione un municipio'
-      }); 
+      });
     this.formu.get('municipio')?.enable()
     }))
     .subscribe({
@@ -229,7 +229,7 @@ public getDepartamento(){
   getCultivo(){
     this._sCul.getCultivo(this.token)
     .pipe(finalize(()=>{
-      
+
     }))
     .subscribe({
       next: (data:any)=>{
@@ -248,10 +248,10 @@ public getDepartamento(){
   getCultivoId(){
     this._sCul.getCultivoId(this.token, this.cultivo?.idCultivo)
     .pipe(finalize(()=>{
-      
+
     }))
     .subscribe({
-      next: (data:any)=>{
+      next: (data)=>{
         this.cultivo=data;
       },
       error: (error:any)=>{
@@ -304,11 +304,11 @@ public getDepartamento(){
       const gas= gastototal.map(({costo,cantidad})=>({
         "total": costo*cantidad
       }))
-      
+
       gas.forEach((ele:any)=> {
         this.gasTotal=this.gasTotal+(ele?.total)
       });
-      
+
       this.loadFormEdit(this.cultivo,this.gast)
       this.getMunicipio()
       this.getVereda();
@@ -334,7 +334,7 @@ public getDepartamento(){
       const gas= gastototal.map(({costo,cantidad})=>({
         "total": costo*cantidad
       }))
-      
+
       gas.forEach((ele:any)=> {
         this.gasTotal=this.gasTotal+(ele?.total)
       });

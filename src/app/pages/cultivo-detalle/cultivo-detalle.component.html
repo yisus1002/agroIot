@@ -27,12 +27,12 @@
         <div class="card shadow border-0 p-3 col-12 col-sm-11 col-md-6 rounded-4" style="border-radius: 43px!important;">
             <h3 class="h4 text-center" style="color: rgb(0, 0, 0);">Registro diario</h3>
             <div class="col d-flex" style="flex-direction: column; font-weight: 600;" >
-                <p class="d-flex justify-content-between " style="color: #F53333; font-weight: 500;"> <span >Temperarua maxima</span> <span> {{tem}}° C</span></p>
-                <p class="d-flex justify-content-between " style="color: #3C72FF; font-weight: 500;"> <span >Temperarua minima</span> <span> {{tem}}° C</span></p>
-                <p class="d-flex justify-content-between " style="color: #D737FF; font-weight: 500;"> <span >Humedad maxima</span> <span>{{hum}}%</span></p>
-                <p class="d-flex justify-content-between " style="color: #00FC56; font-weight: 500;"> <span >Humedad minima</span> <span>{{hum}}%</span></p>
-                <p class="d-flex justify-content-between " style="color: #F6FA2D; font-weight: 500;"> <span >Ph maximo</span> <span>{{ph}}</span></p>
-                <p class="d-flex justify-content-between " style="color: #FFA217; font-weight: 500;"> <span >Ph minimo</span> <span>{{ph}}</span></p>
+                <p class="d-flex justify-content-between " style="color: #F53333; font-weight: 500;"> <span >Temperarua maxima</span> <span>{{registro?.temperaturaMaxima}}° C</span></p>
+                <p class="d-flex justify-content-between " style="color: #3C72FF; font-weight: 500;"> <span >Temperarua minima</span> <span>{{registro?.temperaturaMinima}}° C</span></p>
+                <p class="d-flex justify-content-between " style="color: #D737FF; font-weight: 500;"> <span >Humedad maxima</span> <span>{{registro?.humedadMaxima}}%</span></p>
+                <p class="d-flex justify-content-between " style="color: #00FC56; font-weight: 500;"> <span >Humedad minima</span> <span>{{registro?.humedadMinima}}%</span></p>
+                <p class="d-flex justify-content-between " style="color: #F6FA2D; font-weight: 500;"> <span >Ph maximo</span> <span>{{registro?.phMaximo}}</span></p>
+                <p class="d-flex justify-content-between " style="color: #FFA217; font-weight: 500;"> <span >Ph minimo</span> <span>{{registro?.phMinimo}}</span></p>
             </div>
         </div>
         </div>
@@ -71,7 +71,7 @@
                           <th scope="col" class="text-capitalize text-center">gastos</th>
                           <th scope="col" class="text-capitalize text-center">cantidad</th>
                           <th scope="col" class="text-capitalize text-center">tipo</th>
-                          <th scope="col" class="text-capitalize text-center">descripción</th> 
+                          <th scope="col" class="text-capitalize text-center">descripción</th>
                         </tr>
                       </thead>
                       <tbody  class="table-group-divider">
@@ -80,7 +80,7 @@
                           <td align="center"  ><span>{{item?.cantidad}}</span></td>
                           <td align="center"  ><span>{{item?.tipo}}</span></td>
                           <td align="center"  ><span>{{item?.descripcion}}</span></td>
-                        </tr> 
+                        </tr>
                       </tbody>
                     </table>
                   </div>
